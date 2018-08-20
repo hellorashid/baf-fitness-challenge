@@ -22,13 +22,15 @@ export default class LeaderboardCardItem extends Component {
     <View>
      <ListItem
         hideChevron
+        roundAvatar
         title={this.props.title}
         badge={{ 
             value: this.props.score, 
-            containerStyle: styles.profileListBadge, 
-            textStyle : styles.profileListBadgeText
+            containerStyle: styles.leaderboardListBadge, 
+            textStyle : styles.leaderboardListBadgeText
         }}
-        titleStyle={{ color: 'white'}}
+        avatar={this.props.avatar}
+        titleStyle={{ color: '#52489C'}}
         containerStyle={{backgroundColor: '#EFEEF6', borderTopWidth: 0, borderBottomWidth: 0}}
       />
     </View>

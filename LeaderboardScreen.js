@@ -7,52 +7,97 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import {styles} from './Styles.js'; 
 import MyHeader from './components/Header.js'; 
 import ProfileCard from './components/ProfileCard.js';
-import ProfileListItem from './components/ProfileListItem.js';
 import ProfileCardItem from './components/ProfileCardItem.js';
 import LeaderboardCardItem from './components/LeaderboardCardItem.js';
 
+let profile_Luna = { 
+  name: 'Luna Lovegood', 
+  score: 22, 
+  avatar : 'https://vignette.wikia.nocookie.net/harrypotter/images/4/49/Luna_profile.jpg/revision/latest?cb=20160902165706'
+}
 
-const TabBest = () => (
-  <View style={[styles.container, { backgroundColor: '#EFEEF6' }]}>
+const TabOverall = () => (
+  <View style={[styles.container, { backgroundColor: '#52489C' }]}>
   <ScrollView style={{flex: 1}}> 
-
   <ProfileCard name="Luna Lovegood" score="56" />
-  
-    <Card containerStyle={styles.profileTabCard} title={'Burpees'} > 
+
+      <Card containerStyle={styles.leaderboardCard} title={'Burpees'} >
         <LeaderboardCardItem 
-          avatar={require('./src/images/lunaProfile.jpg')}
-          title="Luna Lovegood"
-          score={10}
-          />
-    </Card> 
- 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+      </Card> 
   </ScrollView>
   </View>
 );
-const TabAttempts = () => (
-  <View style={[styles.container, { backgroundColor: '#EFEEF6' }]}>
+
+const TabMale = () => (
+  <View style={[styles.container, { backgroundColor: '#52489C' }]}>
   <ScrollView style={{flex: 1}}> 
   <ProfileCard name="Luna Lovegood" score="56" />
-      <Card containerStyle={styles.profileTabCard} title={'Burpees'} > 
-        <ProfileCardItem title={'12/03/2018'} score={10}/>
-        <ProfileCardItem title={'12/03/2018'} score={12}/>
-        <ProfileCardItem title={'12/03/2018'} score={15}/>
-      </Card> 
-      <Card containerStyle={styles.profileTabCard} title={'Burpees'} > 
-        <ProfileCardItem title={'12/03/2018'} score={10}/>
-        <ProfileCardItem title={'12/03/2018'} score={12}/>
-        <ProfileCardItem title={'12/03/2018'} score={15}/>
-      </Card> 
 
+      <Card containerStyle={styles.leaderboardCard} title={'Burpees'} >
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+      </Card> 
   </ScrollView>
-  </View>);
+  </View>
+);
+
+const TabFemale = () => (
+  <View style={[styles.container, { backgroundColor: '#52489C' }]}>
+  <ScrollView style={{flex: 1}}> 
+  <ProfileCard name="Luna Lovegood" score="56" />
+
+      <Card containerStyle={styles.leaderboardCard} title={'Burpees'} >
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+
+        <LeaderboardCardItem 
+          title={profile_Luna.name} 
+          score={profile_Luna.score} 
+          avatar={profile_Luna.avatar}/>
+      </Card> 
+  </ScrollView>
+  </View>
+);
 
 class TabViewExample extends React.Component {
   state = {
     index: 0,
     routes: [
-      { key: 'best', title: 'Best' },
-      { key: 'attempts', title: 'Attempts' },
+      { key: 'overall', title: 'Overall' },
+      { key: 'female', title: 'Female' },
+      { key: 'male', title: 'Male' },
     ],
   };
 
@@ -61,8 +106,9 @@ class TabViewExample extends React.Component {
       <TabView
         navigationState={this.state}
         renderScene={SceneMap({
-          best: TabBest,
-          attempts: TabAttempts,
+          overall: TabOverall,
+          female: TabFemale,
+          male: TabMale
         })}
         onIndexChange={index => this.setState({ index })}
         renderTabBar={props =>
@@ -83,7 +129,7 @@ export default class LeaderboardScreen extends React.Component {
     return (   
         <View style={styles.container}>
           <MyHeader title="Leaderboard" />
-
+        
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
           < TabViewExample />
           </View> 

@@ -6,6 +6,11 @@ const windowHeight = Dimensions.get('window').height;
 
 const Purple_Primary = '#52489C'
 const Light_Primary = '#EFEEF6'
+
+export const colors = { 
+  light : '#EFEEF6', 
+  purple : '#52489C'
+}
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -17,10 +22,10 @@ export const styles = StyleSheet.create({
   // ---- HEADER ------
   headerContainer : { 
     backgroundColor: '#EFEEF6', 
-    height: 80
+    height: 80, 
   }, 
   headerInnerContainer : { 
-    paddingTop: 30
+    paddingTop: 30, 
   }, 
   headerText : { 
     color: Purple_Primary, 
@@ -47,6 +52,12 @@ export const styles = StyleSheet.create({
     height: windowHeight * 0.3, 
     width: windowWidth * 0.9,
     borderRadius: 10
+  }, 
+  profileCardBackground : { 
+    height: windowHeight * 0.3, 
+    width: windowWidth,
+    borderRadius: 10, 
+    position: 'absolute'
   }, 
   profileCardTextView : { 
     position: 'absolute',
@@ -85,7 +96,8 @@ export const styles = StyleSheet.create({
   }, 
   profileTabCard : { 
     borderRadius: 10, 
-    backgroundColor: Light_Primary
+    backgroundColor: Light_Primary, 
+    elevation: 10, 
   }, 
   profileCardBadge : { 
     backgroundColor: Purple_Primary, 
@@ -95,22 +107,36 @@ export const styles = StyleSheet.create({
     fontSize: 18
   }, 
 
-//  ----- Leaderboards 
+//  ----- Leaderboards --- 
 
   leaderboardCard : { 
     borderRadius: 10, 
     elevation: 10, 
     borderWidth: 0, 
+    backgroundColor: Light_Primary, 
+    marginTop: 25,
+    marginBottom: 25,
+    padding: 10
   }, 
+  leaderboardListBadge : { 
+    backgroundColor: Purple_Primary, 
+  }, 
+  leaderboardListBadgeText : { 
+    color: Light_Primary, 
+    fontSize: 18
+  }, 
+
+  
 
 // ---- Challenge Screen 
   challengeCard : { 
     width: windowWidth * 0.8, 
     height: 210, 
     borderRadius: 10,
-    backgroundColor: '#B3B3F1',
+    backgroundColor: colors.light,
     elevation: 10, 
     borderWidth: 0,
+    padding: 0, 
   }, 
   challengeListCard : { 
     height: 100, 
@@ -124,6 +150,31 @@ export const styles = StyleSheet.create({
     fontSize: 25, 
     fontWeight: '500', 
     elevation: 11, 
+    bottom: 0
+  }, 
+  challengeGift : { 
+    width: windowWidth * 0.8, 
+    height: 210, 
+    borderRadius: 10 
+  }, 
+  modalStyle : { 
+    backgroundColor: Purple_Primary,
+    borderRadius: 10,
+    width: windowWidth * 0.9,
+    padding: 0, 
+    // position: 'absolute', 
+    // bottom: 10
+  }, 
+  modalButton : { 
+    borderRadius: 20, 
+    bottom: 0, 
+    right: 0,
+    position: 'absolute', 
+    height: 40, 
+    width: 40
+  }, 
+  modalVideo : { 
+    height: 200
   }
 });
 

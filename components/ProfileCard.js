@@ -14,6 +14,11 @@ export default class ProfileCard extends Component {
   render() {
     return (
     <View style={styles.profileView}> 
+    {/* <Image 
+          style={styles.profileCardBackground}
+          resizeMode={'cover'}
+          source={require('../src/images/lightBackground.png')}
+    /> */}
       <Card
         containerStyle={styles.profileCard} 
       > 

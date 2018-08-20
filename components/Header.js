@@ -17,9 +17,8 @@ export default class MyHeader extends Component {
             outerContainerStyles={styles.headerContainer}
             statusBarProps={{ barStyle: 'default', backgroundColor: "#334393" }}
             innerContainerStyles={styles.headerInnerContainer}
-
             centerComponent={{ text: this.props.title, style: styles.headerText }}
-            rightComponent={{ icon: 'home', color: '#52489C' }}
+            // rightComponent={{ icon: 'home', color: '#52489C' }}
         />      
     </View>
     );
