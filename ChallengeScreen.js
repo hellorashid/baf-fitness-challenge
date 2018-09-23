@@ -5,6 +5,21 @@ import {Video} from 'expo';
 import Modal from 'react-native-modal';
 import {styles, colors} from './Styles.js'; 
 import MyHeader from './components/Header.js'; 
+import ChallengeListCard from './components/ChallengeListCard.js'; 
+
+import bikeImage from './src/images/covers/bike.png';
+import burpeesImage from './src/images/covers/burpees.png';
+import freethrowImage from './src/images/covers/freethrow.png';
+import plankImage from './src/images/covers/plank.png';
+import pushupsImage from './src/images/covers/pushups.png';
+import ropeImage from './src/images/covers/rope.png';
+import rowingImage from './src/images/covers/rowing.png';
+import shuttlerunImage from './src/images/covers/shuttlerun.png';
+import squatsImage from './src/images/covers/squats.png';
+
+
+import video from './src/images/video.mp4';
+
 
 export default class ChallengeScreen extends React.Component {
     state = {
@@ -47,11 +62,11 @@ export default class ChallengeScreen extends React.Component {
             backdropColor={'#EFEEF6'} >
           <View style={styles.modalStyle}>
             <Video
-            source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
-            shouldPlay
-            resizeMode="cover"
-            isMuted
-            style={styles.modalVideo} 
+                source={video}
+                shouldPlay
+                resizeMode="cover"
+                isMuted
+                style={styles.modalVideo} 
             /> 
             {/* <Button
             icon={{name: 'close', type: 'font-awesome'}}
@@ -62,44 +77,46 @@ export default class ChallengeScreen extends React.Component {
             rounded
             /> */}
             <Icon
-            reverse
-            name='close'
-            type='font-awesome'
-            color='#EFEEF6'
-            reverseColor='#52489C'
-            raised
-            onPress={this._toggleModal}
-            containerStyle={styles.modalButton}
+                reverse
+                name='close'
+                type='font-awesome'
+                color='#EFEEF6'
+                reverseColor='#52489C'
+                raised
+                onPress={this._toggleModal}
+                containerStyle={styles.modalButton}
             />
 
             </View>
         </Modal>
 
 
-        <View style={{flex: 1}}>      
+        <View style={{flex: 1, paddingBottom: 22}}>      
+
+            <ChallengeListCard title={'Burpees'} videoPress={this._toggleModal} coverImage={burpeesImage}/>
+
+            <ChallengeListCard title={'Bike'} videoPress={this._toggleModal} coverImage={bikeImage}/>
+
+            <ChallengeListCard title={'Fitness Test'} videoPress={this._toggleModal} coverImage={ropeImage}/>
+
+            <ChallengeListCard title={'Free Throw'} videoPress={this._toggleModal} coverImage={freethrowImage}/>
+
+            <ChallengeListCard title={'Plank'} videoPress={this._toggleModal} coverImage={plankImage}/>
+
+            <ChallengeListCard title={'Push Ups'} videoPress={this._toggleModal} coverImage={pushupsImage}/>
+
+            <ChallengeListCard title={'Rowing'} videoPress={this._toggleModal} coverImage={rowingImage}/>
+
+            <ChallengeListCard title={'Shuttle Run'} videoPress={this._toggleModal} coverImage={shuttlerunImage}/>
+
+            <ChallengeListCard title={'Squats'} videoPress={this._toggleModal} coverImage={squatsImage}/>
 
 
-            <Card containerStyle={styles.challengeListCard}>
+            {/* <Card containerStyle={ styles.challengeListCard } image={bikeImage} imageStyle={{borderRadius: 10, position: "absolute"}}>
                 <Text style={styles.challengeListText} onPress={this._toggleModal}> Burpees </Text> 
-            </Card> 
-            <Card containerStyle={styles.challengeListCard}>
-                <Text style={styles.challengeListText}> Bike </Text> 
-            </Card> 
-            <Card containerStyle={styles.challengeListCard}>
-                <Text style={styles.challengeListText}> Fitness Test </Text> 
-            </Card> 
-            <Card containerStyle={styles.challengeListCard}>
-                <Text style={styles.challengeListText}> Free Throw </Text> 
-            </Card> 
-            <Card containerStyle={styles.challengeListCard}>
-                <Text style={styles.challengeListText}> Plank </Text> 
-            </Card> 
-            <Card containerStyle={styles.challengeListCard}>
-                <Text style={styles.challengeListText}> Push Ups </Text> 
-            </Card> 
-            <Card containerStyle={styles.challengeListCard}>
-                <Text style={styles.challengeListText}> Rope Pull </Text> 
-            </Card> 
+            </Card>  */}
+          
+          
         </View>               
         </ScrollView>
         </View>

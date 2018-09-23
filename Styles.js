@@ -140,17 +140,25 @@ export const styles = StyleSheet.create({
   }, 
   challengeListCard : { 
     height: 100, 
+    width: windowWidth * 0.9, 
     borderRadius: 10, 
     elevation: 10, 
     borderWidth: 0, 
     backgroundColor: Purple_Primary, 
+    padding: 0, 
+  }, 
+  challengeListImage : { 
+    width: windowWidth * 0.9, 
+    height: 100, 
+    borderRadius: 10 
   }, 
   challengeListText : { 
     color: Light_Primary,
     fontSize: 25, 
     fontWeight: '500', 
     elevation: 11, 
-    bottom: 0
+    bottom: 0, 
+    left: 5
   }, 
   challengeGift : { 
     width: windowWidth * 0.8, 

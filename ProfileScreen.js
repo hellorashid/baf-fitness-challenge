@@ -12,18 +12,33 @@ import ProfileCardItem from './components/ProfileCardItem.js';
 
 const TabBest = () => (
   <View style={[styles.container, { backgroundColor: '#52489C' }]}>
-      <ProfileListItem title={'Burpees'} score={10} />
-      <ProfileListItem title={'Biking'} score={10} />  
+      <ProfileListItem title={'Burpees'} score={15} />
+      <ProfileListItem title={'Bike'} score={18} />  
+      <ProfileListItem title={'Plank'} score={16} />  
+
   </View>
 );
 const TabAttempts = () => (
   <View style={[styles.container, { backgroundColor: '#52489C' }]}>
-  <ScrollView style={{flex: 1}}> 
+  <ScrollView style={{flex: 1, paddingBottom: 22}}> 
       <Card containerStyle={styles.profileTabCard} title={'Burpees'} > 
         <ProfileCardItem title={'12/03/2018'} score={10}/>
         <ProfileCardItem title={'12/03/2018'} score={12}/>
         <ProfileCardItem title={'12/03/2018'} score={15}/>
       </Card> 
+
+      <Card containerStyle={styles.profileTabCard} title={'Bike'} > 
+        <ProfileCardItem title={'12/03/2018'} score={11}/>
+        <ProfileCardItem title={'12/03/2018'} score={12}/>
+        <ProfileCardItem title={'12/04/2018'} score={18}/>
+      </Card> 
+
+      <Card containerStyle={styles.profileTabCard} title={'Plank'} > 
+        <ProfileCardItem title={'12/03/2018'} score={11}/>
+        <ProfileCardItem title={'12/03/2018'} score={12}/>
+        <ProfileCardItem title={'12/04/2018'} score={16}/>
+      </Card>
+
 
       
 
