@@ -1,17 +1,35 @@
 import React from 'react';
-import { Text, View, Image, Dimensions, ScrollView} from 'react-native';
-import {Icon} from 'react-native-elements'; 
+// import { Text, View, Image, Dimensions, ScrollView} from 'react-native';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import {Icon} from 'react-native-elements'; 
 
+// Import Screens
 import ProfileScreen from './ProfileScreen.js';
 import LeaderboardScreen from './LeaderboardScreen.js';
 import ChallengeScreen from './ChallengeScreen.js';
-import {styles} from './Styles.js'; 
+// import {styles} from './Styles.js'; 
+
+import * as firebase from 'firebase';
+// import LoginScreen from './login.js';
+import SignUpScreen from './signup.js';
+import LoginScreen from './login.js';
+
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDhPEC7VQqb8EnEsfQN9D5n5XJUOP1LQps",
+  authDomain: "fitnesschallenge-26de6.firebaseapp.com",
+  databaseURL: "https://fitnesschallenge-26de6.firebaseio.com",
+  projectId: "fitnesschallenge-26de6",
+  storageBucket: "fitnesschallenge-26de6.appspot.com",
+  messagingSenderId: "706151436086"
+};
+firebase.initializeApp(config);
 
 export default createMaterialBottomTabNavigator({
   Profile: { screen: ProfileScreen },
   Leaderboards: { screen: LeaderboardScreen },
   Challenge: { screen: ChallengeScreen },
+  Login : { screen: LoginScreen}
 }, {
   initialRouteName: 'Profile',
   activeTintColor: '#EFEEF6',

@@ -183,6 +183,25 @@ export const styles = StyleSheet.create({
   }, 
   modalVideo : { 
     height: 200
+  }, 
+
+// ------ LOGIN PAGE -------
+  loginPage : { 
+    flex: 1,
+    backgroundColor: '#EEF1FA' 
+  }, 
+  loginImage : { 
+    width: windowWidth, 
+    height: windowHeight *  0.5 , 
+    
+  }, 
+
+  signupImage : { 
+    width: windowWidth, 
+    height: windowHeight *  0.4 , 
+    position: 'absolute', 
+    bottom: 0, 
+    marginBottom: 0
   }
 });
 
