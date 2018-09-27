@@ -6,6 +6,9 @@
 # dependencies
 /node_modules
 
+#secret api
+secret.js
+
 # misc
 .env.local
 .env.development.local

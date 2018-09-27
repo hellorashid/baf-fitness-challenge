@@ -10,13 +10,13 @@ import ChallengeScreen from './ChallengeScreen.js';
 // import {styles} from './Styles.js'; 
 
 import * as firebase from 'firebase';
-// import LoginScreen from './login.js';
 import SignUpScreen from './signup.js';
 import LoginScreen from './login.js';
+import secret from './secret.js'; 
 
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyDhPEC7VQqb8EnEsfQN9D5n5XJUOP1LQps",
+  apiKey: secret.FIREBASE_KEY,
   authDomain: "fitnesschallenge-26de6.firebaseapp.com",
   databaseURL: "https://fitnesschallenge-26de6.firebaseio.com",
   projectId: "fitnesschallenge-26de6",
