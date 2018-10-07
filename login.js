@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
 import {Header, Card, List, ListItem, Icon, Button, FormInput, FormLabel} from 'react-native-elements'; 
-
-import SwitchSelector from 'react-native-switch-selector';
+import firebase from 'firebase'; 
 
 import {styles} from './Styles.js'; 
 import illustrationImage from './src/images/illustration.png'; 
@@ -10,10 +9,15 @@ import illustrationImage from './src/images/illustration.png';
 import MyHeader from './components/Header.js'; 
 
 export default class LoginScreen extends React.Component {
+    state = { email: '', password: '', errorMessage: null }
 
-    handleSignUp = () => {
-        // TODO: Firebase stuff...
-        console.log('handleSignUp')
+    handleLogin = () => {
+        const { email, password } = this.state
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then(() => this.props.navigation.navigate('Main'))
+          .catch(error => this.setState({ errorMessage: error.message }))
       }
 
   render() {
@@ -33,30 +37,45 @@ export default class LoginScreen extends React.Component {
             }}
         > 
            
-     
-
             <FormLabel labelStyle={{color: '#52489C'}}>Email</FormLabel>
             <FormInput 
                 containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
-                onChangeText={this.handleSignUp}/>      
-
+                onChangeText={email => this.setState({ email })}
+                value={this.state.email}
+            />      
 
             <FormLabel labelStyle={{color: '#52489C'}}>Password</FormLabel>
             <FormInput 
+                secureTextEntry
                 containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
-                onChangeText={this.handleSignUp}/> 
+                onChangeText={password => this.setState({ password })}
+                value={this.state.password}
+            /> 
            
             <Button 
                 // raised
+                onPress={this.handleLogin}
                 large
                 rounded
                 backgroundColor={'#52489C'}
                 title='Login' 
                 containerViewStyle={{ marginTop: 20}}
-                /> 
+                > </Button> 
 
+                
+            <Button 
+                onPress={() => this.props.navigation.navigate('SignUpScreen') }
+                // large
+                outline
+                rounded
+                backgroundColor={'#52489C'}
+                color={'#52489C'}
+                title={'Don\'t have an account?'} 
+                containerViewStyle={{ marginTop: 20}}
+                > </Button>
             </Card> 
 
+           
 
             <ImageBackground
                 resizeMode={'cover'}

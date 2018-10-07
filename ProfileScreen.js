@@ -1,14 +1,17 @@
 import React from 'react';
-import { Text, View, Image, Dimensions, ScrollView} from 'react-native';
-import {Header, Card, List, ListItem, Icon} from 'react-native-elements'; 
+import {  View, ScrollView} from 'react-native';
+import {Card,} from 'react-native-elements'; 
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import firebase from 'firebase'; 
 
 import {styles} from './Styles.js'; 
-import MyHeader from './components/Header.js'; 
+import ProfileHeader from './components/ProfileHeader.js'; 
 import ProfileCard from './components/ProfileCard.js';
 import ProfileListItem from './components/ProfileListItem.js';
 import ProfileCardItem from './components/ProfileCardItem.js';
+
+
+
 
 const TabBest = () => (
   <View style={[styles.container, { backgroundColor: '#52489C' }]}>
@@ -76,12 +79,31 @@ class TabViewExample extends React.Component {
 }
 
 export default class ProfileScreen extends React.Component {
+  state = { currentUser: null, userID: null, someID : 'mB651xQDm4hbnW2OqW6XV0F40lR2' }
+
+  componentDidMount() {
+    const { currentUser } = firebase.auth()
+    this.setState({ currentUser })
+    this.setState({userID : currentUser.uid})
+
+  }
+
+  getFirstName(userId) { 
+      firebase.database().ref('users/' + userId).on('value', (snapshot) => {
+        const firstName = snapshot.val();
+        console.log("FirstName: " + firstName);
+      });
+  }
+  
+
   render() {
+    const { currentUser, userID } = this.state
+    this.getFirstName(userID); 
     return (   
         <View style={styles.container}>
-          <MyHeader title="Profile" />
+          <ProfileHeader title="Profile" />
           
-          <ProfileCard name="Luna Lovegood" score="56" />
+          <ProfileCard name={currentUser && userID} score="56" />
 
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
           < TabViewExample />

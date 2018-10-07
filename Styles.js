@@ -193,7 +193,6 @@ export const styles = StyleSheet.create({
   loginImage : { 
     width: windowWidth, 
     height: windowHeight *  0.5 , 
-    
   }, 
 
   signupImage : { 
@@ -202,6 +201,18 @@ export const styles = StyleSheet.create({
     position: 'absolute', 
     bottom: 0, 
     marginBottom: 0
+  }, 
+
+// -------- AUTH PAGE ----------
+
+  authPage : { 
+    backgroundColor: '#EEF1FA', 
+    // backgroundColor: 'blue', 
+    height: windowHeight, 
+    padding: 0, 
+    alignItems: 'center',
+    justifyContent: 'center',
   }
+
 });
 

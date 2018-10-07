@@ -1,35 +1,41 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, List, ListItem, Icon, Button, FormInput, FormLabel} from 'react-native-elements'; 
+import {Header, Card, List, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel} from 'react-native-elements'; 
+import firebase from 'firebase'; 
 
-import { Jiro  } from 'react-native-textinput-effects';
 import SwitchSelector from 'react-native-switch-selector';
 
 import {styles} from './Styles.js'; 
 import illustrationImage from './src/images/illustration.png'; 
 
 import MyHeader from './components/Header.js'; 
-import ProfileCard from './components/ProfileCard.js';
-import ProfileListItem from './components/ProfileListItem.js';
-import ProfileCardItem from './components/ProfileCardItem.js';
 
+const provider = new firebase.auth.GoogleAuthProvider();
 
 
 
 export default class SignUpScreen extends React.Component {
+    state = { email: '', password: '', gender : '', errorMessage: null }
 
     handleSignUp = () => {
-        // TODO: Firebase stuff...
-        console.log('handleSignUp')
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.state.email, this.state.password)
+          .then(() => this.props.navigation.navigate('Main'))
+          .catch(error => this.setState({ errorMessage: error.message }))
       }
-
+        
   render() {
     return (   
         <View style={styles.loginPage}>
-          <MyHeader title="Sign Up" />
+        <MyHeader title="Sign Up" />
           
         <View style={{flex: 1, backgroundColor: '#EEF1FA', }}> 
-
+        <ImageBackground
+                resizeMode={'cover'}
+                source={illustrationImage}
+                style={styles.signupImage}
+            />
          <Card
             containerStyle={{
                 borderRadius: 20,
@@ -37,52 +43,74 @@ export default class SignUpScreen extends React.Component {
                 elevation: 5, 
                 borderWidth: 0, 
 
-            }}
-        > 
-           
-  
+            }}> 
 
-            <FormLabel labelStyle={{color: '#52489C'}}>Name</FormLabel>
-            <FormInput 
-                containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
-                onChangeText={this.handleSignUp}/>    
+            <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
 
             <FormLabel labelStyle={{color: '#52489C'}}>Email</FormLabel>
-            <FormInput 
-                containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
-                onChangeText={this.handleSignUp}/>      
+                <FormInput 
+                    containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
+                    onChangeText={email => this.setState({ email })}
+                    value={this.state.email}
+                    />    
 
-            <FormLabel labelStyle={{color: '#52489C'}}>Preferred Competition: </FormLabel>
-            <SwitchSelector
-            initial={0}
-            // onPress={value => this.setState({ gender: value })}
-            textColor={'#52489C'} //'#7a44cf'
-            selectedColor={'#EFEEF6'}
-            buttonColor={'#52489C'}
-            borderColor={'#52489C'}
-            hasPadding
-            options={[
-                { label: 'Male', value: 'f',   }, 
-                { label: 'Female', value: 'm',   } 
-            ]} />
+            <FormLabel labelStyle={{color: '#52489C'}}>Password</FormLabel>
+                <FormInput 
+                    secureTextEntry
+                    containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
+                    onChangeText={password => this.setState({ password })}
+                    value={this.state.password}
+                    />      
+
+            {/* <FormLabel labelStyle={{color: '#52489C'}}>Preferred Competition: </FormLabel> */}
+                {/* <SwitchSelector
+                    initial={0}
+                    // onPress={value => this.setState({ gender: value })}
+                    // value={this.state.gender}
+                    textColor={'#52489C'} //'#7a44cf'
+                    selectedColor={'#EFEEF6'}
+                    buttonColor={'#52489C'}
+                    borderColor={'#52489C'}
+                    hasPadding
+                    options={[
+                        { label: 'Male', value: 'f',   }, 
+                        { label: 'Female', value: 'm',   } 
+                    ]} 
+                /> */}
 
             <Button 
                 // raised
+                onPress={this.handleSignUp}
                 large
                 rounded
                 backgroundColor={'#52489C'}
                 title='Sign Up' 
                 containerViewStyle={{ marginTop: 20}}
-                /> 
+            > </Button>  
 
+
+            <Button 
+                onPress={() => this.props.navigation.navigate('LoginScreen') }
+                // large
+                outline
+                rounded
+                backgroundColor={'#52489C'}
+                color={'#52489C'}
+                title='Already have an account?' 
+                containerViewStyle={{ marginTop: 20}}
+                > </Button> 
             </Card> 
 
+              
 
-            <ImageBackground
-                resizeMode={'cover'}
-                source={illustrationImage}
-                style={styles.signupImage}
-            />
+            <SocialIcon
+            title='Sign Up with Google'
+            button
+            light
+            type='google'
+            /> 
+
+         
 
           </View> 
 
@@ -92,3 +120,5 @@ export default class SignUpScreen extends React.Component {
     );
   }
 }
+
+
