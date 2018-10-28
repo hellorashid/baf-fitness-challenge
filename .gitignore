@@ -4,7 +4,7 @@
 .expo/
 
 # dependencies
-/node_modules
+node_modules/
 
 #secret api
 secret.js
@@ -18,3 +18,10 @@ secret.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Admin Dashboard 
+# /adminDashboard/node_modules
+# /adminDashboard/src/secret.js
+/adminDashboard/.env
+
