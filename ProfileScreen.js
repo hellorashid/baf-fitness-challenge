@@ -103,7 +103,7 @@ export default class ProfileScreen extends React.Component {
         <View style={styles.container}>
           <ProfileHeader title="Profile" />
           
-          <ProfileCard name={currentUser && userID} score="56" />
+          <ProfileCard name={currentUser && currentUser.firstName} score="56" />
 
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
           < TabViewExample />
