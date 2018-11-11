@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Text, View, Image, Dimensions, ScrollView} from 'react-native';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {Icon} from 'react-native-elements'; 
 import secret from './secret.js'; 
@@ -11,21 +10,11 @@ import LeaderboardScreen from './LeaderboardScreen.js';
 import ChallengeScreen from './ChallengeScreen.js';
 // import {styles} from './Styles.js'; 
 
-import * as firebase from 'firebase';
-import SignUpScreen from './signup.js';
-import LoginScreen from './login.js';
-import AuthScreen from './authscreen.js';
+// import * as firebase from 'firebase';
+// import SignUpScreen from './signup.js';
+// import LoginScreen from './login.js';
+// import AuthScreen from './authscreen.js';
 
-// Initialize Firebase
-// var config = {
-//   apiKey: secret.FIREBASE_KEY,
-//   authDomain: "fitnesschallenge-26de6.firebaseapp.com",
-//   databaseURL: "https://fitnesschallenge-26de6.firebaseio.com",
-//   projectId: "fitnesschallenge-26de6",
-//   storageBucket: "fitnesschallenge-26de6.appspot.com",
-//   messagingSenderId: "706151436086"
-// };
-// firebase.initializeApp(config);
 
 export default createMaterialBottomTabNavigator({
   Profile: { screen: ProfileScreen },

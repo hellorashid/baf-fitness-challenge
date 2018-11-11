@@ -80,8 +80,6 @@ class App extends React.Component {
           component={Leaderboards} 
           authenticated={authenticated} /> */}
         </Switch>
-
-       
       </Router>
     )
   }

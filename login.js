@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, List, ListItem, Icon, Button, FormInput, FormLabel} from 'react-native-elements'; 
+import {Header, Card, List, ListItem, Icon, Button, FormInput, FormLabel, FormValidationMessage} from 'react-native-elements'; 
 import firebase from 'firebase'; 
 
 import {styles} from './Styles.js'; 
@@ -9,15 +9,16 @@ import illustrationImage from './src/images/illustration.png';
 import MyHeader from './components/Header.js'; 
 
 export default class LoginScreen extends React.Component {
-    state = { email: '', password: '', errorMessage: null }
+    state = { email: '', password: '', errorMessage: null, isLoading: false }
 
     handleLogin = () => {
+        this.setState({isLoading: true})
         const { email, password } = this.state
         firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
           .then(() => this.props.navigation.navigate('Main'))
-          .catch(error => this.setState({ errorMessage: error.message }))
+          .catch(error => this.setState({ errorMessage: error.message, isLoading: false }))
       }
 
   render() {
@@ -36,7 +37,7 @@ export default class LoginScreen extends React.Component {
 
             }}
         > 
-           
+            <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
             <FormLabel labelStyle={{color: '#52489C'}}>Email</FormLabel>
             <FormInput 
                 containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
@@ -60,6 +61,8 @@ export default class LoginScreen extends React.Component {
                 backgroundColor={'#52489C'}
                 title='Login' 
                 containerViewStyle={{ marginTop: 20}}
+                loading={this.state.isLoading}
+                loadingRight={true}
                 > </Button> 
 
                 

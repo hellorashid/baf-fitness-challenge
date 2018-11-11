@@ -42,9 +42,6 @@ const TabAttempts = () => (
         <ProfileCardItem title={'12/04/2018'} score={16}/>
       </Card>
 
-
-      
-
   </ScrollView>
   </View>);
 
@@ -79,31 +76,46 @@ class TabViewExample extends React.Component {
 }
 
 export default class ProfileScreen extends React.Component {
-  state = { currentUser: null, userID: null, someID : 'mB651xQDm4hbnW2OqW6XV0F40lR2' }
+  state = { 
+    currentUser: null, 
+    userID: null, 
+    someID : 'mB651xQDm4hbnW2OqW6XV0F40lR2', 
+    firstName : '', 
+    lastName: '', 
+    overall: 0,
+  }
 
   componentDidMount() {
     const { currentUser } = firebase.auth()
-    this.setState({ currentUser })
+    this.setState({ currentUser: currentUser })
     this.setState({userID : currentUser.uid})
+    this.getFirstName(currentUser.uid); 
 
   }
 
   getFirstName(userId) { 
       firebase.database().ref('users/' + userId).on('value', (snapshot) => {
-        const firstName = snapshot.val();
-        console.log("FirstName: " + firstName);
+        const thisUser = snapshot.val();
+        // console.log("FirstName: " + firstName);
+        this.setState({
+          firstName: thisUser.first_name, 
+          lastName: thisUser.last_name, 
+          overall: thisUser.overall
+        })
+  
+        
       });
   }
   
 
   render() {
-    const { currentUser, userID } = this.state
-    this.getFirstName(userID); 
+    const { currentUser, userID, firstName, lastName, overall} = this.state
+    // this.getFirstName(userID); 
     return (   
         <View style={styles.container}>
           <ProfileHeader title="Profile" />
           
-          <ProfileCard name={currentUser && currentUser.firstName} score="56" />
+          <ProfileCard name={firstName + ' ' + lastName} score={overall} />
 
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
           < TabViewExample />

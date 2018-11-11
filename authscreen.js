@@ -32,13 +32,14 @@ export default class AuthScreen extends React.Component {
     return (   
         <View style={styles.authPage}>       
      
+            <ActivityIndicator size="large" color="#52489C" />
             <Text>Loading...</Text> 
-            <Image
+            {/* <Image
                 resizeMode={'contain'}
                 source={loadingImage}
                 style={{width: 135}}
                 // style={styles.signupImage}
-            /> 
+            />  */}
                   
 
             <Image

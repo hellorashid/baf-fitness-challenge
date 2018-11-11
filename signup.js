@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, List, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel} from 'react-native-elements'; 
+import {Header, Card, List, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
+import { ImagePicker, Permissions } from 'expo';
 import firebase from 'firebase'; 
 
 import SwitchSelector from 'react-native-switch-selector';
@@ -9,13 +10,20 @@ import {styles} from './Styles.js';
 import illustrationImage from './src/images/illustration.png'; 
 
 import MyHeader from './components/Header.js'; 
-
 const provider = new firebase.auth.GoogleAuthProvider();
 
 
 
+
 export default class SignUpScreen extends React.Component {
-    state = { email: '', password: '', gender : '', errorMessage: null }
+    state = { email: '', password: '', gender : '', errorMessage: null, image: null }
+
+    async componentDidMount() {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status2 } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+        // this.setState({ hasCameraPermission: status === 'granted' });
+    }
 
     handleSignUp = () => {
         firebase
@@ -24,6 +32,21 @@ export default class SignUpScreen extends React.Component {
           .then(() => this.props.navigation.navigate('Main'))
           .catch(error => this.setState({ errorMessage: error.message }))
       }
+
+      _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          aspect: [4, 3],
+        });
+    
+        console.log('Image: ', result);
+    
+        if (!result.cancelled) {
+            console.log("not cancelled")
+          this.setState({ image: result.uri });
+        }
+      };
+    
         
   render() {
     return (   
@@ -52,6 +75,7 @@ export default class SignUpScreen extends React.Component {
                     containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
                     onChangeText={email => this.setState({ email })}
                     value={this.state.email}
+                    
                     />    
 
             <FormLabel labelStyle={{color: '#52489C'}}>Password</FormLabel>
@@ -62,10 +86,10 @@ export default class SignUpScreen extends React.Component {
                     value={this.state.password}
                     />      
 
-            {/* <FormLabel labelStyle={{color: '#52489C'}}>Preferred Competition: </FormLabel> */}
-                {/* <SwitchSelector
+            <FormLabel labelStyle={{color: '#52489C'}}>Preferred Competition: </FormLabel>
+                <SwitchSelector
                     initial={0}
-                    // onPress={value => this.setState({ gender: value })}
+                    onPress={value => this.setState({ gender: value })}
                     // value={this.state.gender}
                     textColor={'#52489C'} //'#7a44cf'
                     selectedColor={'#EFEEF6'}
@@ -73,10 +97,32 @@ export default class SignUpScreen extends React.Component {
                     borderColor={'#52489C'}
                     hasPadding
                     options={[
-                        { label: 'Male', value: 'f',   }, 
-                        { label: 'Female', value: 'm',   } 
+                        { label: 'Male', value: 'm',   }, 
+                        { label: 'Female', value: 'f',   } 
                     ]} 
-                /> */}
+                />
+
+     
+                 {this.state.image &&
+                    <Avatar source={{ uri: this.state.image }} 
+                    // style={{ width: 200, height: 200 }}
+                    size="large"
+                    rounded
+
+                />}
+
+               
+
+                <Button 
+                onPress={this._pickImage}
+                outline
+                rounded
+                backgroundColor={'#52489C'}
+                color={'#52489C'}
+                title="Profile Picture"
+                containerViewStyle={{ marginTop: 20}}
+                > </Button> 
+
 
             <Button 
                 // raised
@@ -89,7 +135,7 @@ export default class SignUpScreen extends React.Component {
             > </Button>  
 
 
-            <Button 
+             <Button 
                 onPress={() => this.props.navigation.navigate('LoginScreen') }
                 // large
                 outline
@@ -99,15 +145,19 @@ export default class SignUpScreen extends React.Component {
                 title='Already have an account?' 
                 containerViewStyle={{ marginTop: 20}}
                 > </Button> 
-            </Card> 
 
               
+           
+            </Card> 
+
+             
 
             <SocialIcon
             title='Sign Up with Google'
             button
             light
             type='google'
+            onPress={ () => console.log("Hi", this.state.image)}
             /> 
 
          
@@ -119,6 +169,8 @@ export default class SignUpScreen extends React.Component {
         </View>
     );
   }
+
+
 }
 
 
