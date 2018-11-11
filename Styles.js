@@ -212,7 +212,26 @@ export const styles = StyleSheet.create({
     padding: 0, 
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  }, 
+
+  signUpProfile : { 
+      height: 100, 
+      width: windowWidth * 0.8, 
+      borderRadius: 10, 
+      elevation: 10, 
+      borderWidth: 0, 
+      backgroundColor: Purple_Primary, 
+      padding: 0, 
+      display: 'flex'
+  }, 
+  signUpImage : { 
+    width: windowWidth * 0.8, 
+    height: 100, 
+    borderRadius: 10, 
+    // position: 'absolute',
+    left: 0, 
+    
+  }, 
 
 });
 

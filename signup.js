@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, List, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
+import {Header, Card, Tile, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
 import { ImagePicker, Permissions } from 'expo';
 import firebase from 'firebase'; 
 
+import { TextField } from 'react-native-material-textfield';
 import SwitchSelector from 'react-native-switch-selector';
 
 import {styles} from './Styles.js'; 
@@ -12,11 +13,19 @@ import illustrationImage from './src/images/illustration.png';
 import MyHeader from './components/Header.js'; 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-
+const defaultImage = "https://d1u1amw606tzwl.cloudfront.net/assets/users/avatar-default-96007ee5610cdc5a9eed706ec0889aec2257a3937d0fbb747cf335f8915f09b2.png"
 
 
 export default class SignUpScreen extends React.Component {
-    state = { email: '', password: '', gender : '', errorMessage: null, image: null }
+    state = { 
+        firstName: '', 
+        lastName: '', 
+        email: '',
+        password: '',
+        gender : '',
+        errorMessage: null,
+        image: defaultImage
+    }
 
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -65,32 +74,71 @@ export default class SignUpScreen extends React.Component {
                 backgroundColor: '#D6D8ED', 
                 elevation: 5, 
                 borderWidth: 0, 
-
+                height: 500
             }}> 
+
+            {/* <ScrollView> */}
 
             <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
 
-            <FormLabel labelStyle={{color: '#52489C'}}>Email</FormLabel>
-                <FormInput 
-                    containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
-                    onChangeText={email => this.setState({ email })}
-                    value={this.state.email}
-                    
-                    />    
+            <TextField 
+                // containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
+                onChangeText={firstName => this.setState({ firstName })}
+                value={this.state.firstName}
+                //TextField
+                label=" First Name"
+                textColor={"#52489C"}
+                baseColor={"#52489C"}
+                tintColor={"#52489C"}
+                fontSize={20}
+                labelFontSize={15}
+                />
 
-            <FormLabel labelStyle={{color: '#52489C'}}>Password</FormLabel>
-                <FormInput 
+            <TextField 
+                // containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
+                onChangeText={lastName => this.setState({ lastName })}
+                value={this.state.lastName}
+                //TextField
+                label=" Last Name"
+                textColor={"#52489C"}
+                baseColor={"#52489C"}
+                tintColor={"#52489C"}
+                fontSize={20}
+                labelFontSize={15}
+            />
+
+
+            <TextField 
+                // containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
+                onChangeText={email => this.setState({ email })}
+                value={this.state.email}
+                //TextField
+                label=" Email"
+                textColor={"#52489C"}
+                baseColor={"#52489C"}
+                tintColor={"#52489C"}
+                fontSize={20}
+                labelFontSize={15}
+                />    
+
+                <TextField 
                     secureTextEntry
-                    containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
+                    // containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
                     onChangeText={password => this.setState({ password })}
                     value={this.state.password}
+                    //TextField
+                    label=" Password"
+                    textColor={"#52489C"}
+                    baseColor={"#52489C"}
+                    tintColor={"#52489C"}
+                    fontSize={20}
+                    labelFontSize={15}
                     />      
 
             <FormLabel labelStyle={{color: '#52489C'}}>Preferred Competition: </FormLabel>
                 <SwitchSelector
                     initial={0}
                     onPress={value => this.setState({ gender: value })}
-                    // value={this.state.gender}
                     textColor={'#52489C'} //'#7a44cf'
                     selectedColor={'#EFEEF6'}
                     buttonColor={'#52489C'}
@@ -102,26 +150,23 @@ export default class SignUpScreen extends React.Component {
                     ]} 
                 />
 
-     
-                 {this.state.image &&
-                    <Avatar source={{ uri: this.state.image }} 
-                    // style={{ width: 200, height: 200 }}
-                    size="large"
-                    rounded
-
-                />}
-
-               
+                <View style={{marginTop: 20, elevation: 5}}> 
+                <Image 
+                    style={styles.signUpImage}
+                    resizeMode={'contain'}
+                    source={{uri: this.state.image} }
+                    />
+                </View> 
 
                 <Button 
-                onPress={this._pickImage}
-                outline
-                rounded
-                backgroundColor={'#52489C'}
-                color={'#52489C'}
-                title="Profile Picture"
-                containerViewStyle={{ marginTop: 20}}
-                > </Button> 
+                    onPress={this._pickImage}
+                    outline
+                    rounded
+                    backgroundColor={'#52489C'}
+                    color={'#52489C'}
+                    title="Profile Picture"
+                    containerViewStyle={{ marginTop: 20}}
+                />  
 
 
             <Button 
@@ -132,33 +177,42 @@ export default class SignUpScreen extends React.Component {
                 backgroundColor={'#52489C'}
                 title='Sign Up' 
                 containerViewStyle={{ marginTop: 20}}
-            > </Button>  
+            > </Button>             
+           
+           {/* </ScrollView> */}
+            </Card> 
 
-
-             <Button 
+            <Button 
                 onPress={() => this.props.navigation.navigate('LoginScreen') }
                 // large
-                outline
+                // outline
                 rounded
-                backgroundColor={'#52489C'}
+                backgroundColor={'white'}
                 color={'#52489C'}
                 title='Already have an account?' 
                 containerViewStyle={{ marginTop: 20}}
-                > </Button> 
-
-              
-           
-            </Card> 
+            ></Button> 
 
              
+             <Button 
+                onPress={() => console.log(this.state.firstName) }
+                // large
+                // outline
+                rounded
+                backgroundColor={'white'}
+                color={'#52489C'}
+                title='Already have an account?' 
+                containerViewStyle={{ marginTop: 20}}
+            ></Button>
 
-            <SocialIcon
-            title='Sign Up with Google'
+
+            {/* <SocialIcon
+            title='Already have an account?'
             button
             light
             type='google'
-            onPress={ () => console.log("Hi", this.state.image)}
-            /> 
+            onPress={() => console.log(this.state.firstName) }
+            />   */}
 
          
 
