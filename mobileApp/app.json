@@ -9,7 +9,8 @@
     "androidStatusBar": {
       "backgroundColor": "#EFEEF6"
     }, 
-    "privacy" : "public"
+    "privacy" : "public", 
+    "platforms" : ["android"]
   }
   
   
