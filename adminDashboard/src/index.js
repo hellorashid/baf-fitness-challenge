@@ -75,11 +75,11 @@ class App extends React.Component {
             component={Dashboard} 
             authenticated={authenticated} />
 
-             {/* <PrivateRoute 
-          exact path="/leaderboards" 
-          component={Leaderboards} 
-          authenticated={authenticated} /> */}
-        </Switch>
+          <PrivateRoute 
+            exact path="/leaderboards" 
+            component={Leaderboards} 
+            authenticated={authenticated} />
+          </Switch>
       </Router>
     )
   }

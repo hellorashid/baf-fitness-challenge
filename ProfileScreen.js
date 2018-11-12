@@ -76,41 +76,65 @@ class TabViewExample extends React.Component {
 }
 
 export default class ProfileScreen extends React.Component {
-  state = { 
-    currentUser: null, 
-    userID: null, 
-    someID : 'mB651xQDm4hbnW2OqW6XV0F40lR2', 
-    firstName : '', 
-    lastName: '', 
-    overall: 0,
+  constructor(props) { 
+    super()
+    this.state = { 
+      currentUser: null, 
+      userID: null, 
+      someID : 'mB651xQDm4hbnW2OqW6XV0F40lR2', 
+      firstName : '', 
+      lastName: '', 
+      overall: 0,
+      onboard: false,
+    }
+    this.checkIfUserExists(firebase.auth().currentUser.uid)
+  }
+ 
+
+  checkIfUserExists(userId) {
+    firebase.database().ref('users/' + userId).on('value', (snapshot) => {
+      var exists = (snapshot.val() !== null);
+      console.log("user status: ", exists)
+      if (exists == true) { 
+        this.setState({onboard: false})
+        console.log(this.state.onboard)
+      } else { 
+        this.props.navigation.navigate('OnboardingScreen')
+      }
+    });
+
   }
 
   componentDidMount() {
     const { currentUser } = firebase.auth()
-    this.setState({ currentUser: currentUser })
-    this.setState({userID : currentUser.uid})
-    this.getFirstName(currentUser.uid); 
 
+    if (this.state.onboard == false) {     
+      this.setState({ currentUser: currentUser })
+      this.setState({userID : currentUser.uid})
+      this.getFirstName(currentUser.uid); 
+    }
   }
 
   getFirstName(userId) { 
       firebase.database().ref('users/' + userId).on('value', (snapshot) => {
         const thisUser = snapshot.val();
-        // console.log("FirstName: " + firstName);
-        this.setState({
-          firstName: thisUser.first_name, 
-          lastName: thisUser.last_name, 
-          overall: thisUser.overall
-        })
-  
-        
+        console.log("This user:", thisUser)
+
+        if (thisUser != null) {     
+          this.setState({
+            firstName: thisUser.first_name, 
+            lastName: thisUser.last_name, 
+            overall: thisUser.overall
+          })
+        }
+            
       });
   }
   
 
   render() {
+  
     const { currentUser, userID, firstName, lastName, overall} = this.state
-    // this.getFirstName(userID); 
     return (   
         <View style={styles.container}>
           <ProfileHeader title="Profile" />

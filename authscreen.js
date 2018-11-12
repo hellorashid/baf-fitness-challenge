@@ -21,11 +21,13 @@ firebase.initializeApp(config);
 
 
 export default class AuthScreen extends React.Component {
-
+ 
     componentDidMount() {
+        
         firebase.auth().onAuthStateChanged(user => {
             this.props.navigation.navigate(user ? 'Main' : 'SignUpScreen')
         })
+        
     } 
 
   render() {

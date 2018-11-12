@@ -11,7 +11,11 @@ import CardBody from "components/Card/CardBody.jsx";
 import Button from "components/CustomButtons/Button.jsx"; 
 import fire from '../../fire.js'; 
 
+import image from "assets/img/purple_background.png";
+import logo from "assets/img/iconLogo.png";
+import Sidebar from "components/Sidebar/Sidebar.jsx";
 
+import dashboardRoutes from "routes/dashboard.jsx";
 
 const styles = {
   cardCategoryWhite: {

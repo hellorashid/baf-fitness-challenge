@@ -15,12 +15,14 @@ import LoginScreen from './login.js';
 import AuthScreen from './authscreen.js';
 import Main from './Main.js'; 
 import AuthTabs from './AuthTabs.js';
+import OnboardingScreen from './onboarding.js';
 
 
 const App = createSwitchNavigator(
   {
     AuthScreen,
     SignUpScreen,
+    OnboardingScreen,
     LoginScreen,
     AuthTabs, 
     Main
