@@ -1,7 +1,10 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, List, ListItem, Icon, Button, FormInput, FormLabel, FormValidationMessage} from 'react-native-elements'; 
+import {Header, Card, List, ListItem, Icon, SocialIcon, Button, FormInput, FormLabel, FormValidationMessage} from 'react-native-elements'; 
 import firebase from 'firebase'; 
+
+import secret from './secret.js'
+const androidClientId = secret.ANDROID_CLIENTID
 
 import {styles} from './Styles.js'; 
 import illustrationImage from './src/images/illustration.png'; 
@@ -20,6 +23,35 @@ export default class LoginScreen extends React.Component {
           .then(() => this.props.navigation.navigate('Main'))
           .catch(error => this.setState({ errorMessage: error.message, isLoading: false }))
       }
+
+    testSomething = () => { 
+        console.log("hiii, testing!")
+    }
+
+    // googleLogin = async () => {
+    //     try {
+    //       const result = await Expo.Google.logInAsync({
+    //         androidClientId: androidClientId,
+    //         scopes: ["profile", "email"], 
+    //         customParameters: { hd: 'nyu.edu' },
+    //       })
+    //       if (result.type === "success") {
+
+    //         console.log("SUCCESS", result.user.name)
+    //         // this.setState({
+    //         //   signedIn: true,
+    //         //   name: result.user.name,
+    //         //   photoUrl: result.user.photoUrl
+    //         // })
+    //       } else {
+    //         console.log("cancelled")
+    //       }
+    //     } catch (e) {
+    //         console.log("error", e)
+    //         }
+    // }
+
+   
 
   render() {
     return (   
@@ -65,6 +97,7 @@ export default class LoginScreen extends React.Component {
                 loadingRight={true}
                 > </Button> 
 
+          
                 
             <Button 
                 onPress={() => this.props.navigation.navigate('SignUpScreen') }
@@ -76,6 +109,25 @@ export default class LoginScreen extends React.Component {
                 title={'Don\'t have an account?'} 
                 containerViewStyle={{ marginTop: 20}}
                 > </Button>
+
+            <Button 
+                onPress={() => console.log("uhhh")}
+                // large
+                outline
+                rounded
+                backgroundColor={'#52489C'}
+                color={'#52489C'}
+                title={'DEBUG?'} 
+                containerViewStyle={{ marginTop: 20}}
+            > </Button>
+
+            {/* <SocialIcon
+                title='Sign In with Google?'
+                button
+                light
+                type='google'
+                onPress={this.googleLogin}
+            />    */}
             </Card> 
 
            

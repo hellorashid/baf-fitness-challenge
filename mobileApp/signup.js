@@ -3,6 +3,7 @@ import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react
 import {Header, Card, Tile, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
 import { ImagePicker, Permissions } from 'expo';
 import firebase from 'firebase'; 
+import secret from './secret.js'
 
 import { TextField } from 'react-native-material-textfield';
 import SwitchSelector from 'react-native-switch-selector';
@@ -15,6 +16,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 const defaultImage = "https://d1u1amw606tzwl.cloudfront.net/assets/users/avatar-default-96007ee5610cdc5a9eed706ec0889aec2257a3937d0fbb747cf335f8915f09b2.png"
 
+const androidClientId = secret.ANDROID_CLIENTID
 
 export default class SignUpScreen extends React.Component {
     state = { 
@@ -80,6 +82,31 @@ export default class SignUpScreen extends React.Component {
           this.setState({ image: result.uri });
         }
       };
+
+
+      googleLogin = async () => {
+        try {
+          const result = await Expo.Google.logInAsync({
+            androidClientId: androidClientId,
+            scopes: ["profile", "email"], 
+            customParameters: { hd: 'nyu.edu' },
+          })
+          if (result.type === "success") {
+
+            console.log("SUCCESS", result.user.name)
+            // this.setState({
+            //   signedIn: true,
+            //   name: result.user.name,
+            //   photoUrl: result.user.photoUrl
+            // })
+          } else {
+            console.log("cancelled")
+          }
+    } catch (e) {
+          console.log("error", e)
+        }
+    }
+    
     
         
   render() {
@@ -159,6 +186,15 @@ export default class SignUpScreen extends React.Component {
                 containerViewStyle={{ marginTop: 20}}
             ></Button> 
 
+            <Button 
+                onPress={() => console.log("hi") }
+                rounded
+                backgroundColor={'white'}
+                color={'#52489C'}
+                title='Already have an account?' 
+                containerViewStyle={{ marginTop: 20}}
+            ></Button> 
+
              
              {/* <Button 
                 onPress={ this.uploadImageAsync(defaultImage) }
@@ -172,13 +208,13 @@ export default class SignUpScreen extends React.Component {
             ></Button> */}
 
 
-            {/* <SocialIcon
-            title='Already have an account?'
-            button
-            light
-            type='google'
-            onPress={() => console.log(this.state.firstName) }
-            />   */}
+            <SocialIcon
+                title='Already have an account?'
+                button
+                light
+                type='google'
+                onPress={this.googleLogin}
+            />   
 
          
 
