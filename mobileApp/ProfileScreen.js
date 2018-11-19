@@ -1,5 +1,5 @@
 import React from 'react';
-import {  View, ScrollView} from 'react-native';
+import {Text,  View, ScrollView} from 'react-native';
 import {Card,} from 'react-native-elements'; 
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import firebase from 'firebase'; 
@@ -10,7 +10,7 @@ import ProfileCard from './components/ProfileCard.js';
 import ProfileListItem from './components/ProfileListItem.js';
 import ProfileCardItem from './components/ProfileCardItem.js';
 
-
+import posed from 'react-native-pose';
 
 
 const TabBest = () => (
@@ -86,10 +86,11 @@ export default class ProfileScreen extends React.Component {
       lastName: '', 
       overall: 0,
       onboard: false,
-    }
+   }
     this.checkIfUserExists(firebase.auth().currentUser.uid)
   }
  
+  
 
   checkIfUserExists(userId) {
     firebase.database().ref('users/' + userId).on('value', (snapshot) => {
@@ -113,6 +114,7 @@ export default class ProfileScreen extends React.Component {
       this.setState({userID : currentUser.uid})
       this.getFirstName(currentUser.uid); 
     }
+
   }
 
   getFirstName(userId) { 
@@ -130,17 +132,17 @@ export default class ProfileScreen extends React.Component {
             
       });
   }
+
+
   
 
   render() {
-  
     const { currentUser, userID, firstName, lastName, overall} = this.state
     return (   
         <View style={styles.container}>
           <ProfileHeader title="Profile" />
           
           <ProfileCard name={firstName + ' ' + lastName} score={overall} />
-
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
           < TabViewExample />
           </View> 
