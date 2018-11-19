@@ -1,9 +1,11 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, Tile, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
+import {Header, Card, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
 import { ImagePicker, Permissions } from 'expo';
 import firebase from 'firebase'; 
 import secret from './secret.js'
+const androidClientId = secret.ANDROID_CLIENTID
+const provider = new firebase.auth.GoogleAuthProvider();
 
 import { TextField } from 'react-native-material-textfield';
 import SwitchSelector from 'react-native-switch-selector';
@@ -12,11 +14,9 @@ import {styles} from './Styles.js';
 import illustrationImage from './src/images/illustration.png'; 
 
 import MyHeader from './components/Header.js'; 
-const provider = new firebase.auth.GoogleAuthProvider();
 
 const defaultImage = "https://d1u1amw606tzwl.cloudfront.net/assets/users/avatar-default-96007ee5610cdc5a9eed706ec0889aec2257a3937d0fbb747cf335f8915f09b2.png"
 
-const androidClientId = secret.ANDROID_CLIENTID
 
 export default class SignUpScreen extends React.Component {
     state = { 
@@ -27,7 +27,9 @@ export default class SignUpScreen extends React.Component {
         gender : '',
         errorMessage: null,
         image: defaultImage, 
-        isLoading: false
+        isLoading: false,
+        isLoading2: false
+
     }
 
     async componentDidMount() {
@@ -37,14 +39,7 @@ export default class SignUpScreen extends React.Component {
         // this.setState({ hasCameraPermission: status === 'granted' });
     }
 
-    writeUserData(userID, firstName, lastName, profileImage, gender) { 
-        firebase.database.ref('users/' + userID).set({ 
-            first_name: firstName, 
-            last_name: lastName, 
-            gender: gender, 
-            profileImage: profileImage, 
-        })
-    }
+  
 
     // async uploadImageAsync(uri) {
     //     const response = await fetch(uri);
@@ -84,8 +79,9 @@ export default class SignUpScreen extends React.Component {
       };
 
 
-      googleLogin = async () => {
+    googleLogin = async () => {
         try {
+            this.setState({isLoading2: true})
           const result = await Expo.Google.logInAsync({
             androidClientId: androidClientId,
             scopes: ["profile", "email"], 
@@ -94,19 +90,26 @@ export default class SignUpScreen extends React.Component {
           if (result.type === "success") {
 
             console.log("SUCCESS", result.user.name)
-            // this.setState({
-            //   signedIn: true,
-            //   name: result.user.name,
-            //   photoUrl: result.user.photoUrl
-            // })
+            console.log("SUCCESS", result)
+            
+            const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
+
+            return firebase.auth().signInWithCredential(credential).catch((error) => {
+                console.log("uh oh" , error.message)
+              });
           } else {
             console.log("cancelled")
           }
+
     } catch (e) {
           console.log("error", e)
+          this.setState({ isLoading2: false })
         }
     }
     
+    consoleButton = () => { 
+        console.log("🔥", firebase.auth().currentUser)
+    }
     
         
   render() {
@@ -165,6 +168,8 @@ export default class SignUpScreen extends React.Component {
                 onPress={this.handleSignUp}
                 large
                 rounded
+                outline
+                color={'#52489C'}
                 backgroundColor={'#52489C'}
                 title='Sign Up' 
                 containerViewStyle={{ marginTop: 20}}
@@ -172,7 +177,17 @@ export default class SignUpScreen extends React.Component {
                 loadingRight={true}
             > </Button>             
            
-           {/* </ScrollView> */}
+          
+           <SocialIcon
+                title='Sign in with Google'
+                button
+                // light
+                style={{backgroundColor: '#52489C' }}
+                type='google'
+                onPress={this.googleLogin}
+                loading={this.state.isLoading2}
+                loadingRight={true}
+            /> 
             </Card> 
 
             <Button 
@@ -186,14 +201,14 @@ export default class SignUpScreen extends React.Component {
                 containerViewStyle={{ marginTop: 20}}
             ></Button> 
 
-            <Button 
-                onPress={() => console.log("hi") }
+            {/* <Button 
+                onPress={this.consoleButton }
                 rounded
                 backgroundColor={'white'}
                 color={'#52489C'}
                 title='Already have an account?' 
                 containerViewStyle={{ marginTop: 20}}
-            ></Button> 
+            ></Button>  */}
 
              
              {/* <Button 
@@ -208,13 +223,7 @@ export default class SignUpScreen extends React.Component {
             ></Button> */}
 
 
-            <SocialIcon
-                title='Already have an account?'
-                button
-                light
-                type='google'
-                onPress={this.googleLogin}
-            />   
+              
 
          
 

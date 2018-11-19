@@ -31,6 +31,10 @@ export default class OnboardingScreen extends React.Component {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         const { status2 } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
+        this.setState({ 
+            image: firebase.auth().currentUser.photoURL, 
+            firstName: firebase.auth().currentUser.displayName
+        })
         // this.setState({ hasCameraPermission: status === 'granted' });
     }
 
@@ -99,14 +103,14 @@ export default class OnboardingScreen extends React.Component {
                 backgroundColor: '#D6D8ED', 
                 elevation: 5, 
                 borderWidth: 0, 
-                height: 600
+                // height: 300
             }}> 
 
             {/* <ScrollView> */}
 
             <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
 
-            <TextField 
+            {/* <TextField 
                 // containerStyle={{borderRadius: 5, borderColor:'#52489C', borderWidth: 2 }}
                 onChangeText={firstName => this.setState({ firstName })}
                 value={this.state.firstName}
@@ -130,10 +134,24 @@ export default class OnboardingScreen extends React.Component {
                 tintColor={"#52489C"}
                 fontSize={20}
                 labelFontSize={15}
-            />
- 
+            /> */}
 
-            <FormLabel labelStyle={{color: '#52489C'}}>Preferred Competition: </FormLabel>
+            <View style={{marginTop: 20, elevation: 5}}> 
+                <Image 
+                    style={styles.signUpImage}
+                    resizeMode={'contain'}
+                    source={{uri: this.state.image} }
+                    />
+
+                <Text style={{fontSize: 20}} > Welcome,</Text>
+                <Text style={{fontSize: 40}} > {this.state.firstName}</Text>
+
+
+                </View>
+
+            <FormLabel labelStyle={{color: '#52489C'}}>
+                Please choose your preferred competition preference
+             </FormLabel>
                 <SwitchSelector
                     initial={0}
                     onPress={value => this.setState({ gender: value })}
@@ -148,15 +166,9 @@ export default class OnboardingScreen extends React.Component {
                     ]} 
                 />
 
-                <View style={{marginTop: 20, elevation: 5}}> 
-                <Image 
-                    style={styles.signUpImage}
-                    resizeMode={'contain'}
-                    source={{uri: this.state.image} }
-                    />
-                </View> 
+               
 
-                <Button 
+                {/* <Button 
                     onPress={this._pickImage}
                     outline
                     rounded
@@ -164,7 +176,7 @@ export default class OnboardingScreen extends React.Component {
                     color={'#52489C'}
                     title="Profile Picture"
                     containerViewStyle={{ marginTop: 20}}
-                />  
+                />   */}
 
 
             <Button 

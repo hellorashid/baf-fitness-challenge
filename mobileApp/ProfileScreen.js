@@ -145,7 +145,6 @@ export default class ProfileScreen extends React.Component {
           < TabViewExample />
           </View> 
 
-
           
         </View>
     );
