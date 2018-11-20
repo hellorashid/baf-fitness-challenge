@@ -2,7 +2,7 @@
   "expo": {
     "name" : "BAF Fitness Challenge", 
     "slug" : "baf-fitness-challenge",
-    "version" : "0.1", 
+    "version" : "1.0", 
     "githubUrl" : "https://github.com/hellorashid/baf-fitness-challenge", 
     "icon" : "./appIcon.png",
     "sdkVersion": "27.0.0", 
@@ -10,7 +10,12 @@
       "backgroundColor": "#EFEEF6"
     }, 
     "privacy" : "public", 
-    "platforms" : ["android"]
+    "platforms" : ["android"], 
+    "android": {
+      "package": "com.rashidaziz.baffitnesschallenge", 
+      "versionCode" : 1,
+      "permissions" : [] 
+    }
   }
   
   
