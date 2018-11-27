@@ -10,7 +10,7 @@ import ProfileCard from './components/ProfileCard.js';
 import ProfileListItem from './components/ProfileListItem.js';
 import ProfileCardItem from './components/ProfileCardItem.js';
 
-import posed from 'react-native-pose';
+//import posed from 'react-native-pose';
 
 
 const TabBest = () => (

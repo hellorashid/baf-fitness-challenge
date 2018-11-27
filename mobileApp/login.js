@@ -110,7 +110,7 @@ export default class LoginScreen extends React.Component {
                 containerViewStyle={{ marginTop: 20}}
                 > </Button>
 
-            <Button 
+            {/* <Button 
                 onPress={() => console.log("uhhh")}
                 // large
                 outline
@@ -119,7 +119,7 @@ export default class LoginScreen extends React.Component {
                 color={'#52489C'}
                 title={'DEBUG?'} 
                 containerViewStyle={{ marginTop: 20}}
-            > </Button>
+            > </Button> */}
 
             {/* <SocialIcon
                 title='Sign In with Google?'

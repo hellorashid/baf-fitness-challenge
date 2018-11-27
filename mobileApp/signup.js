@@ -2,10 +2,6 @@ import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
 import {Header, Card, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
 import { ImagePicker, Permissions } from 'expo';
-import firebase from 'firebase'; 
-import secret from './secret.js'
-const androidClientId = secret.ANDROID_CLIENTID
-const provider = new firebase.auth.GoogleAuthProvider();
 
 import { TextField } from 'react-native-material-textfield';
 import SwitchSelector from 'react-native-switch-selector';
@@ -14,6 +10,14 @@ import {styles} from './Styles.js';
 import illustrationImage from './src/images/illustration.png'; 
 
 import MyHeader from './components/Header.js'; 
+
+import firebase from 'firebase'; 
+const provider = new firebase.auth.GoogleAuthProvider();
+
+import secret from './secret.js'
+const androidClientId = secret.ANDROID_CLIENTID
+const androidStandaloneAppClientId = secret.OAUTH_KEY
+const webClientId = secret.WEB_CLIENTID
 
 const defaultImage = "https://d1u1amw606tzwl.cloudfront.net/assets/users/avatar-default-96007ee5610cdc5a9eed706ec0889aec2257a3937d0fbb747cf335f8915f09b2.png"
 
@@ -85,7 +89,9 @@ export default class SignUpScreen extends React.Component {
           const result = await Expo.Google.logInAsync({
             androidClientId: androidClientId,
             scopes: ["profile", "email"], 
-            customParameters: { hd: 'nyu.edu' },
+            // customParameters: { hd: 'nyu.edu' },
+            webClientId : webClientId,
+            androidStandaloneAppClientId : secret.OAUTH_KEY
           })
           if (result.type === "success") {
 
@@ -99,6 +105,8 @@ export default class SignUpScreen extends React.Component {
               });
           } else {
             console.log("cancelled")
+            this.setState({ isLoading2: false })
+
           }
 
     } catch (e) {
