@@ -476,10 +476,10 @@ export default class ProfileScreen extends React.Component {
           <ProfileHeader title="Profile"  />
           
           <ProfileCard name={firstName + ' ' + lastName} score={overall} image={this.state.profileImage} />
-          <Button
+          {/* <Button
             title="Debug"
             onPress={ () => console.log(this.state.burpeesMax)}
-          /> 
+          />  */}
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
           < TabViewExample 
             attemptsBest={this.state.attemptsBest}

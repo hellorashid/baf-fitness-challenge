@@ -37,18 +37,18 @@ export default class ChallengeScreen extends React.Component {
             <ScrollView style={{flex: 1 }} horizontal={true}> 
                 <Card title="Challenge Dates" containerStyle={styles.challengeCard}> 
                     <ListItem title="9/12/18" rightTitle="6:30-9:30pm" hideChevron rightTitleStyle={{fontSize: 18, color: colors.purple}}/>
-                    <ListItem title="9/12/18" rightTitle="6:30-9:30pm" hideChevron rightTitleStyle={{fontSize: 18, color: colors.purple}}/>
-                    <ListItem title="9/12/18" rightTitle="6:30-9:30pm" hideChevron rightTitleStyle={{fontSize: 18, color: colors.purple}}/>
+                    <ListItem title="9/13/18" rightTitle="6:30-9:30pm" hideChevron rightTitleStyle={{fontSize: 18, color: colors.purple}}/>
+                    <ListItem title="9/15/18" rightTitle="1:30-4:30pm" hideChevron rightTitleStyle={{fontSize: 18, color: colors.purple}}/>
                 </Card> 
 
-                <Card containerStyle={styles.challengeCard}> 
+                {/* <Card containerStyle={styles.challengeCard}> 
                  <Image 
                     style={styles.challengeGift}
                     resizeMode={'cover'}
                     source={require('./src/images/giftOne.jpg') }
                 />
                 <Text style={{fontSize: 30, fontWeight: '700', color: 'white', position: 'absolute', bottom: 5}}> Grand Prize </Text> 
-                </Card>  
+                </Card>   */}
             </ScrollView>
           </View>      
 

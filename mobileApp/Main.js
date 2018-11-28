@@ -17,9 +17,9 @@ import ChallengeScreen from './ChallengeScreen.js';
 
 
 export default createMaterialBottomTabNavigator({
-  Profile: { screen: ProfileScreen },
-  Leaderboards: { screen: LeaderboardScreen },
   Challenge: { screen: ChallengeScreen },
+  Profile: { screen: ProfileScreen },
+  // Leaderboards: { screen: LeaderboardScreen },
 }, {
   initialRouteName: 'Challenge',
   activeTintColor: '#EFEEF6',
