@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text,  View, ScrollView} from 'react-native';
-import {Card,} from 'react-native-elements'; 
+import {Card, Button,} from 'react-native-elements'; 
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import firebase from 'firebase'; 
 
@@ -13,12 +13,21 @@ import ProfileCardItem from './components/ProfileCardItem.js';
 //import posed from 'react-native-pose';
 
 
-const TabBest = () => (
+const TabBest = (props) => (
   <View style={[styles.container, { backgroundColor: '#52489C' }]}>
-      <ProfileListItem title={'Burpees'} score={15} />
-      <ProfileListItem title={'Bike'} score={18} />  
-      <ProfileListItem title={'Plank'} score={16} />  
-
+       
+      { props.attempts.length == 0 && 
+        <View>
+          <Text style={{color: 'white', fontSize: 30}}> You don't have any attempts!</Text>
+        </View>
+      }
+      { props.attempts.length > 0 && 
+        <View>
+          <ProfileListItem title={'Burpees'} score={15} />
+          <ProfileListItem title={'Bike'} score={18} />  
+          <ProfileListItem title={props.test} score={16} /> 
+        </View>
+      }
   </View>
 );
 const TabAttempts = () => (
@@ -54,14 +63,27 @@ class TabViewExample extends React.Component {
     ],
   };
 
+   // renderScene={SceneMap({
+        //   best: TabBest,
+        //   attempts: TabAttempts,
+        // })}
   render() {
     return (
       <TabView
         navigationState={this.state}
-        renderScene={SceneMap({
-          best: TabBest,
-          attempts: TabAttempts,
-        })}
+       
+        renderScene ={ ({ route }) => {
+          switch (route.key) {
+            case 'best':
+               return <TabBest attempts={this.props.attempts}/>;
+            case 'attempts':
+              return <TabAttempts />;
+            default:
+              return null;
+           }
+        }
+         }
+
         onIndexChange={index => this.setState({ index })}
         renderTabBar={props =>
           <TabBar
@@ -81,11 +103,12 @@ export default class ProfileScreen extends React.Component {
     this.state = { 
       currentUser: null, 
       userID: null, 
-      someID : 'mB651xQDm4hbnW2OqW6XV0F40lR2', 
       firstName : '', 
       lastName: '', 
       overall: 0,
       onboard: false,
+      profileImage: '', 
+      attempts : [],
    }
     this.checkIfUserExists(firebase.auth().currentUser.uid)
   }
@@ -126,7 +149,8 @@ export default class ProfileScreen extends React.Component {
           this.setState({
             firstName: thisUser.first_name, 
             lastName: thisUser.last_name, 
-            overall: thisUser.overall
+            overall: thisUser.overall, 
+            profileImage: thisUser.profileImage
           })
         }
             
@@ -140,11 +164,15 @@ export default class ProfileScreen extends React.Component {
     const { currentUser, userID, firstName, lastName, overall} = this.state
     return (   
         <View style={styles.container}>
-          <ProfileHeader title="Profile" />
+          <ProfileHeader title="Profile"  />
           
-          <ProfileCard name={firstName + ' ' + lastName} score={overall} />
+          <ProfileCard name={firstName + ' ' + lastName} score={overall} image={this.state.profileImage} />
+          <Button
+            title="Debug"
+            onPress={ () => console.log(this.state.attempts)}
+          /> 
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
-          < TabViewExample />
+          < TabViewExample attempts={this.state.attempts}/>
           </View> 
 
           

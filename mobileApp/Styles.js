@@ -42,16 +42,16 @@ export const styles = StyleSheet.create({
   }, 
   profileCard: { 
     borderRadius: 10,
-    padding: 0, 
+    padding: 5, 
     height: windowHeight * 0.3, 
     width: windowWidth * 0.9,
     elevation: 20, 
     borderWidth: 0,
   }, 
   profileCardImage : { 
-    height: windowHeight * 0.3, 
+    height: windowHeight * 0.2, 
     width: windowWidth * 0.9,
-    borderRadius: 10
+    borderRadius: 60
   }, 
   profileCardBackground : { 
     height: windowHeight * 0.3, 
@@ -62,8 +62,8 @@ export const styles = StyleSheet.create({
   profileCardTextView : { 
     position: 'absolute',
     bottom: 0 ,
-    padding: 20,
-    height: 50, 
+    // padding: 20,
+    // height: 20, 
     width: windowWidth * 0.9,
     backgroundColor :'rgba(255, 255, 255, 0.5)', 
     borderBottomRightRadius: 10,
@@ -75,17 +75,17 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 32,  
     elevation: 10, 
-    position: 'absolute', 
-    bottom: 5,
+    position: 'relative', 
+    bottom: 0,
   }, 
   profileCardScore : { 
     color: Purple_Primary, 
     fontWeight: '700',
-    fontSize: 32,  
+    fontSize: 50,  
     elevation: 10, 
     position: 'absolute', 
-    bottom: 5, 
-    right: 5
+    bottom: 0, 
+    right: 0
   }, 
   profileListBadge : { 
     backgroundColor: Light_Primary, 

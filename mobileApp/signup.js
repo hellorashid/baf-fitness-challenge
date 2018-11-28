@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, ScrollView, ImageBackground} from 'react-native';
-import {Header, Card, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Avatar} from 'react-native-elements'; 
+import {Header, Card, List, ListItem, SocialIcon, FormValidationMessage, Button, FormInput, FormLabel, Icon} from 'react-native-elements'; 
 import { ImagePicker, Permissions } from 'expo';
+import Modal from 'react-native-modal';
+
 
 import { TextField } from 'react-native-material-textfield';
-import SwitchSelector from 'react-native-switch-selector';
+// import SwitchSelector from 'react-native-switch-selector';
 
 import {styles} from './Styles.js'; 
 import illustrationImage from './src/images/illustration.png'; 
@@ -32,13 +34,16 @@ export default class SignUpScreen extends React.Component {
         errorMessage: null,
         image: defaultImage, 
         isLoading: false,
-        isLoading2: false
-
+        isLoading2: false,
+        isModalVisible: false
     }
 
+    _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+
     async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        const { status2 } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        // const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        // const { status2 } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
         // this.setState({ hasCameraPermission: status === 'granted' });
     }
@@ -86,32 +91,32 @@ export default class SignUpScreen extends React.Component {
     googleLogin = async () => {
         try {
             this.setState({isLoading2: true})
-          const result = await Expo.Google.logInAsync({
-            androidClientId: androidClientId,
-            scopes: ["profile", "email"], 
-            // customParameters: { hd: 'nyu.edu' },
-            webClientId : webClientId,
-            androidStandaloneAppClientId : secret.OAUTH_KEY
-          })
-          if (result.type === "success") {
+            const result = await Expo.Google.logInAsync({
+                behavior: "web",
+                androidClientId: androidClientId,
+                scopes: ["profile", "email"], 
+                webClientId : webClientId,
+                androidStandaloneAppClientId : androidStandaloneAppClientId
+            })
+            if (result.type === "success") {
+                
+                // console.log("SUCCESS", result.user.name)
+                console.log("SUCCESS", result)
+                
+                const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
 
-            console.log("SUCCESS", result.user.name)
-            console.log("SUCCESS", result)
-            
-            const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
+                return firebase.auth().signInWithCredential(credential).catch((error) => {
+                    console.log("uh oh" , error.message)
+                });
+            } else {
+                console.log("cancelled")
+                this.setState({ isLoading2: false })
 
-            return firebase.auth().signInWithCredential(credential).catch((error) => {
-                console.log("uh oh" , error.message)
-              });
-          } else {
-            console.log("cancelled")
+            }
+
+        } catch (e) {
+            console.log("error", e)
             this.setState({ isLoading2: false })
-
-          }
-
-    } catch (e) {
-          console.log("error", e)
-          this.setState({ isLoading2: false })
         }
     }
     
@@ -131,6 +136,40 @@ export default class SignUpScreen extends React.Component {
                 source={illustrationImage}
                 style={styles.signupImage}
             />
+
+            <Button
+                title='Sign in with your NYU Email'
+                // button
+                // light
+                icon={
+                    <Icon
+                      name='google'
+                      type='font-awesome'
+                    //   size={15}
+                      color='white'
+                    />
+                  }
+                // raised
+                large
+                rounded
+                backgroundColor={'#52489C'}
+                style={{backgroundColor: '#52489C' }}
+                containerViewStyle={{ marginTop: 20, elevation: 10}}
+
+                type='google'
+                onPress={this.googleLogin}
+                loading={this.state.isLoading2}
+                loadingRight={true}
+            /> 
+        
+        <Modal 
+            isVisible={this.state.isModalVisible}
+            onBackdropPress={this._toggleModal}
+            onSwipe={this._toggleModal}
+            onBackButtonPress={this._toggleModal}
+            swipeDirection="down"
+            backdropColor={'#EFEEF6'} >
+          <View style={styles.modalStyle}>
          <Card
             containerStyle={{
                 borderRadius: 20,
@@ -186,18 +225,9 @@ export default class SignUpScreen extends React.Component {
             > </Button>             
            
           
-           <SocialIcon
-                title='Sign in with Google'
-                button
-                // light
-                style={{backgroundColor: '#52489C' }}
-                type='google'
-                onPress={this.googleLogin}
-                loading={this.state.isLoading2}
-                loadingRight={true}
-            /> 
+       
             </Card> 
-
+        
             <Button 
                 onPress={() => this.props.navigation.navigate('LoginScreen') }
                 // large
@@ -206,6 +236,23 @@ export default class SignUpScreen extends React.Component {
                 backgroundColor={'white'}
                 color={'#52489C'}
                 title='Already have an account?' 
+                containerViewStyle={{ marginTop: 20}}
+            ></Button> 
+
+
+            </View>
+        </Modal>
+
+
+              <Button 
+                onPress={this._toggleModal }
+                // large
+                // outline
+                rounded
+                clear={true}
+                backgroundColor={'white'}
+                color={'#52489C'}
+                title='Sign in with Email/Password' 
                 containerViewStyle={{ marginTop: 20}}
             ></Button> 
 
