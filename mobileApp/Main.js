@@ -21,7 +21,7 @@ export default createMaterialBottomTabNavigator({
   Leaderboards: { screen: LeaderboardScreen },
   Challenge: { screen: ChallengeScreen },
 }, {
-  initialRouteName: 'Profile',
+  initialRouteName: 'Challenge',
   activeTintColor: '#EFEEF6',
   inactiveTintColor: '#EFEEF6',
   barStyle: { backgroundColor: '#694fad' },

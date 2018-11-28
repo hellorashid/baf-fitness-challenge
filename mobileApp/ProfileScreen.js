@@ -16,41 +16,149 @@ import ProfileCardItem from './components/ProfileCardItem.js';
 const TabBest = (props) => (
   <View style={[styles.container, { backgroundColor: '#52489C' }]}>
        
-      { props.attempts.length == 0 && 
+      {/* { props.attemptsBest.length == 0 && 
         <View>
           <Text style={{color: 'white', fontSize: 30}}> You don't have any attempts!</Text>
         </View>
-      }
-      { props.attempts.length > 0 && 
+      } */}
+      {/* { props.attemptsBest.length > 0 && 
         <View>
-          <ProfileListItem title={'Burpees'} score={15} />
-          <ProfileListItem title={'Bike'} score={18} />  
-          <ProfileListItem title={props.test} score={16} /> 
+          {props.attemptsBest.map( (attempt) => 
+              <ProfileListItem title={attempt.title} score={attempt.score} key={attempt.title} />
+          )}
+       
+        </View>
+      } */}
+      { props.burpeesMax > 0 && 
+        <View>
+          <ProfileListItem title={"Burpees"} score={props.burpeesMax}  />
         </View>
       }
+      { props.bikeMax > 0 && 
+        <View>
+          <ProfileListItem title={"Bike"} score={props.bikeMax}  />
+        </View>
+      }
+      { props.fitnesstestMax > 0 && 
+        <View>
+          <ProfileListItem title={"Fitness Test"} score={props.fitnesstestMax}  />
+        </View>
+      }
+      { props.freethrowMax > 0 && 
+        <View>
+          <ProfileListItem title={"Free Throw"} score={props.freethrowMax}  />
+        </View>
+      }
+      { props.plankMax > 0 && 
+        <View>
+          <ProfileListItem title={"Plank"} score={props.plankMax}  />
+        </View>
+      }
+      { props.pushupsMax > 0 && 
+        <View>
+          <ProfileListItem title={"Pushups"} score={props.pushupsMax}  />
+        </View>
+      }
+      { props.rowingMax > 0 && 
+        <View>
+          <ProfileListItem title={"Rowing"} score={props.rowingMax}  />
+        </View>
+      }
+      { props.shuttlerunMax > 0 && 
+        <View>
+          <ProfileListItem title={"Shuttle Run"} score={props.shuttlerunMax}  />
+        </View>
+      }
+      { props.squatsMax > 0 && 
+        <View>
+          <ProfileListItem title={"Squats"} score={props.squatsMax}  />
+        </View>
+      }
+      
   </View>
 );
-const TabAttempts = () => (
+const TabAttempts = (props) => (
   <View style={[styles.container, { backgroundColor: '#52489C' }]}>
   <ScrollView style={{flex: 1, paddingBottom: 22}}> 
-      <Card containerStyle={styles.profileTabCard} title={'Burpees'} > 
-        <ProfileCardItem title={'12/03/2018'} score={10}/>
-        <ProfileCardItem title={'12/03/2018'} score={12}/>
-        <ProfileCardItem title={'12/03/2018'} score={15}/>
-      </Card> 
+      
+      {
+        props.attempts.burpees != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Burpees'} >          
+          {props.burpeesAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}     
+        </Card> 
+      }
+  
+     {
+        props.attempts.bike != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Bike'} > 
+        {props.bikeAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}   
+        </Card> 
+      }
 
-      <Card containerStyle={styles.profileTabCard} title={'Bike'} > 
-        <ProfileCardItem title={'12/03/2018'} score={11}/>
-        <ProfileCardItem title={'12/03/2018'} score={12}/>
-        <ProfileCardItem title={'12/04/2018'} score={18}/>
-      </Card> 
-
-      <Card containerStyle={styles.profileTabCard} title={'Plank'} > 
-        <ProfileCardItem title={'12/03/2018'} score={11}/>
-        <ProfileCardItem title={'12/03/2018'} score={12}/>
-        <ProfileCardItem title={'12/04/2018'} score={16}/>
-      </Card>
-
+      {
+        props.attempts.fitnesstest != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Fitness Test'} > 
+          {props.fitnesstestAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}  
+        </Card> 
+      }
+      {
+        props.attempts.freethrow != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Free Throw'} > 
+         {props.freethrowAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}  
+        </Card> 
+      }
+      {
+        props.attempts.plank != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Plank'} > 
+         {props.plankAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}  
+        </Card> 
+      }
+      {
+        props.attempts.pushups != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Pushups'} > 
+         {props.pushupsAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}  
+        </Card> 
+      }
+      {
+        props.attempts.rowing != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Rowing'} > 
+         {props.rowingAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}  
+        </Card> 
+      }
+     
+      {
+        props.attempts.squats != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Squats'} > 
+         {props.squatsAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}  
+        </Card> 
+      }
+   
+      {
+        props.attempts.shuttlerun != undefined && 
+        <Card containerStyle={styles.profileTabCard} title={'Shuttle Run'} > 
+        {props.shuttlerunAttempt.map( (attempt) => 
+              <ProfileCardItem title={attempt.key} score={attempt.value.score} key={attempt.key}/>
+          )}   
+        </Card> 
+      }
+       
+ 
   </ScrollView>
   </View>);
 
@@ -75,9 +183,31 @@ class TabViewExample extends React.Component {
         renderScene ={ ({ route }) => {
           switch (route.key) {
             case 'best':
-               return <TabBest attempts={this.props.attempts}/>;
+              return <TabBest 
+                attemptsBest={this.props.attemptsBest}
+                burpeesMax={this.props.burpeesMax}
+                bikeMax={this.props.bikeMax}
+                fitnesstestMax={this.props.fitnesstestMax}
+                freethrowMax={this.props.freethrowMax}
+                plankMax={this.props.burpeesMax}
+                pushupsMax={this.props.pushupsMax}
+                rowingMax={this.props.rowingMax}
+                shuttlerunMax={this.props.shuttlerunMax}
+                squatsMax={this.props.squatsMax}
+              />;
             case 'attempts':
-              return <TabAttempts />;
+              return <TabAttempts
+                attempts={this.props.attempts} 
+                burpeesAttempt={this.props.burpeesAttempt}
+                bikeAttempt={this.props.bikeAttempt}
+                fitnesstestAttempt={this.props.fitnesstestAttempt}
+                freethrowAttempt={this.props.freethrowAttempt}
+                plankAttempt={this.props.plankAttempt}
+                pushupsAttempt={this.props.pushupsAttempt}
+                rowingAttempt={this.props.rowingAttempt}
+                shuttlerunAttempt={this.props.shuttlerunAttempt}
+                squatsAttempt={this.props.squatsAttempt}               
+              />;
             default:
               return null;
            }
@@ -97,6 +227,8 @@ class TabViewExample extends React.Component {
   }
 }
 
+
+
 export default class ProfileScreen extends React.Component {
   constructor(props) { 
     super()
@@ -108,11 +240,36 @@ export default class ProfileScreen extends React.Component {
       overall: 0,
       onboard: false,
       profileImage: '', 
-      attempts : [],
+      attemptsBest : [
+        {title : "Burpees", score: 20},
+        {title : "Shuttle Run", score: 10},
+      ], 
+
+      attempts : {},
+      burpeesAttempt : [],
+      bikeAttempt : [],
+      fitnesstestAttempt : [],
+      freethrowAttempt : [],
+      plankAttempt : [],
+      pushupsAttempt : [],
+      rowingAttempt : [],
+      shuttlerunAttempt : [],
+      squatsAttempt : [],
+
+      burpeesMax : 0, 
+      bikeMax : 0, 
+      fitnesstestMax : 0, 
+      freethrowMax : 0, 
+      plankMax : 0, 
+      pushupsMax : 0, 
+      rowingMax : 0, 
+      shuttlerunMax : 0, 
+      squatsMax : 0, 
+
    }
     this.checkIfUserExists(firebase.auth().currentUser.uid)
   }
- 
+   
   
 
   checkIfUserExists(userId) {
@@ -140,18 +297,170 @@ export default class ProfileScreen extends React.Component {
 
   }
 
+
+
   getFirstName(userId) { 
       firebase.database().ref('users/' + userId).on('value', (snapshot) => {
         const thisUser = snapshot.val();
-        console.log("This user:", thisUser)
-
+        // console.log("This user:", thisUser)
         if (thisUser != null) {     
           this.setState({
             firstName: thisUser.first_name, 
             lastName: thisUser.last_name, 
             overall: thisUser.overall, 
-            profileImage: thisUser.profileImage
+            profileImage: thisUser.profileImage, 
+            attempts : thisUser.attempts,
           })
+
+          if (thisUser.attempts.burpees != undefined) { 
+            let burpees = thisUser.attempts.burpees
+            let burpeesTotal = Object.entries(burpees).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            burpeesTotal.forEach(element => {
+              if (element.value.score > this.state.burpeesMax) { 
+                this.setState({burpeesMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.burpees = burpeesTotal
+            this.setState({
+              attempts : newAttempts,
+              burpeesAttempt : burpeesTotal,
+            })         
+          }
+
+          if (thisUser.attempts.bike != undefined) { 
+            let thisEvent = thisUser.attempts.bike
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.bikeMax) { 
+                this.setState({bikeMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.bike = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              bikeAttempt : eventTotal,
+            })         
+          }
+
+          
+          if (thisUser.attempts.fitnesstest != undefined) { 
+            let thisEvent = thisUser.attempts.fitnesstest
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.fitnesstestMax) { 
+                this.setState({fitnesstestMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.fitnesstest = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              fitnesstestAttempt : eventTotal,
+            })         
+          }
+
+          
+          if (thisUser.attempts.freethrow != undefined) { 
+            let thisEvent = thisUser.attempts.freethrow
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.freethrowMax) { 
+                this.setState({freethrowMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.freethrow = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              freethrowAttempt : eventTotal,
+            })         
+          }
+
+          if (thisUser.attempts.plank != undefined) { 
+            console.log("LOGGGG")
+            let thisEvent = thisUser.attempts.plank
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.plankMax) { 
+                this.setState({plankMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.plank = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              plankAttempt : eventTotal,
+            })         
+          }
+
+          if (thisUser.attempts.pushups != undefined) { 
+            let thisEvent = thisUser.attempts.pushups
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.pushupsMax) { 
+                this.setState({pushupsMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.pushups = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              pushupsAttempt : eventTotal,
+            })         
+          }
+
+          if (thisUser.attempts.rowing != undefined) { 
+            let thisEvent = thisUser.attempts.rowing
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.rowingMax) { 
+                this.setState({rowingMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.rowing = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              rowingAttempt : eventTotal,
+            })         
+          }
+          
+          if (thisUser.attempts.shuttlerun != undefined) { 
+            let thisEvent = thisUser.attempts.shuttlerun
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.shuttlerunMax) { 
+                this.setState({shuttlerunMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.shuttlerun = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              shuttlerunAttempt : eventTotal,
+            })         
+          }
+          if (thisUser.attempts.squats != undefined) { 
+            let thisEvent = thisUser.attempts.squats
+            let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
+            eventTotal.forEach(element => {
+              if (element.value.score > this.state.squatsMax) { 
+                this.setState({squatsMax : element.value.score})
+              }
+            });
+            let newAttempts = {...this.state.attempts}
+            newAttempts.squats = eventTotal
+            this.setState({
+              attempts : newAttempts,
+              squatsAttempt : eventTotal,
+            })         
+          }
+
+
+
+          //  --End  thisUser()  --- 
         }
             
       });
@@ -169,10 +478,32 @@ export default class ProfileScreen extends React.Component {
           <ProfileCard name={firstName + ' ' + lastName} score={overall} image={this.state.profileImage} />
           <Button
             title="Debug"
-            onPress={ () => console.log(this.state.attempts)}
+            onPress={ () => console.log(this.state.burpeesMax)}
           /> 
           <View style={{flex: 1, backgroundColor: '#52489C' }}> 
-          < TabViewExample attempts={this.state.attempts}/>
+          < TabViewExample 
+            attemptsBest={this.state.attemptsBest}
+            burpeesMax={this.state.burpeesMax}
+            bikeMax={this.state.bikeMax}
+            fitnesstestMax={this.state.fitnesstestMax}
+            freethrowMax={this.state.freethrowMax}
+            plankMax={this.state.burpeesMax}
+            pushupsMax={this.state.pushupsMax}
+            rowingMax={this.state.rowingMax}
+            shuttlerunMax={this.state.shuttlerunMax}
+            squatsMax={this.state.squatsMax}
+
+            attempts={this.state.attempts}  
+            burpeesAttempt={this.state.burpeesAttempt}
+            bikeAttempt={this.state.bikeAttempt}
+            fitnesstestAttempt={this.state.fitnesstestAttempt}
+            freethrowAttempt={this.state.freethrowAttempt}
+            plankAttempt={this.state.plankAttempt}
+            pushupsAttempt={this.state.pushupsAttempt}
+            rowingAttempt={this.state.rowingAttempt}
+            shuttlerunAttempt={this.state.shuttlerunAttempt}
+            squatsAttempt={this.state.squatsAttempt}
+          />
           </View> 
 
           
