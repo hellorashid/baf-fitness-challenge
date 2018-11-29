@@ -190,7 +190,7 @@ class TabViewExample extends React.Component {
                 bikeMax={this.props.bikeMax}
                 fitnesstestMax={this.props.fitnesstestMax}
                 freethrowMax={this.props.freethrowMax}
-                plankMax={this.props.burpeesMax}
+                plankMax={this.props.plankMax}
                 pushupsMax={this.props.pushupsMax}
                 rowingMax={this.props.rowingMax}
                 shuttlerunMax={this.props.shuttlerunMax}
@@ -384,7 +384,7 @@ export default class ProfileScreen extends React.Component {
             }
 
             if (thisUser.attempts.plank != undefined) { 
-              console.log("LOGGGG")
+              // console.log("LOGGGG")
               let thisEvent = thisUser.attempts.plank
               let eventTotal = Object.entries(thisEvent).map(entry => Object.assign({value: entry[1]}, { key: entry[0].substring(0,10) }));
               eventTotal.forEach(element => {

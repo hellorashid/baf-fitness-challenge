@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Text } from 'react-native';
+import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import {Card} from 'react-native-elements'; 
 import { styles } from '../Styles';
 
@@ -19,7 +19,9 @@ export default class ChallengeListCard extends Component {
     //     <Text style={styles.challengeListText} onPress={this.props.videoPress}> Burpees </Text> 
     // </Card>
 
-    <Card containerStyle={styles.challengeListCard}> 
+    <TouchableWithoutFeedback onPress={this.props.videoPress}>
+    <View>
+    <Card containerStyle={styles.challengeListCard} > 
         <Image 
         style={styles.challengeListImage}
         resizeMode={'cover'}
@@ -30,6 +32,12 @@ export default class ChallengeListCard extends Component {
             {this.props.title} 
         </Text> 
     </Card>  
+
+
+    </View>
+    </TouchableWithoutFeedback>
+
+    
     
     );
   }

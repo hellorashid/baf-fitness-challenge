@@ -146,6 +146,7 @@ export const styles = StyleSheet.create({
     borderWidth: 0, 
     backgroundColor: Purple_Primary, 
     padding: 0, 
+    marginBottom: 15
   }, 
   challengeListImage : { 
     width: windowWidth * 0.9, 
