@@ -22,31 +22,31 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
-    navbarName: "Material Dashboard",
+    navbarName: "Dashboard",
     icon: Dashboard,
     component: DashboardPage
   },
-  {
-    path: "/leaderboards",
-    sidebarName: "Leaderboards",
-    navbarName: "Leaderboards",
-    icon: 'assessment',
-    component: Leaderboards 
-  },
-  {
-    path: "/table",
-    sidebarName: "Users",
-    navbarName: "Users",
-    icon: "person",
-    component: TableList
-  },
-  {
-    path: "/add",
-    sidebarName: "Add Attempt",
-    navbarName: "Add Attempt",
-    icon: 'add_circle',
-    component: UpgradeToPro
-  },
+  // {
+  //   path: "/leaderboards",
+  //   sidebarName: "Leaderboards",
+  //   navbarName: "Leaderboards",
+  //   icon: 'assessment',
+  //   component: Leaderboards 
+  // },
+  // {
+  //   path: "/table",
+  //   sidebarName: "Users",
+  //   navbarName: "Users",
+  //   icon: "person",
+  //   component: TableList
+  // },
+  // {
+  //   path: "/add",
+  //   sidebarName: "Add Attempt",
+  //   navbarName: "Add Attempt",
+  //   icon: 'add_circle',
+  //   component: UpgradeToPro
+  // },
   // {
   //   path: "/icons",
   //   sidebarName: "Icons",

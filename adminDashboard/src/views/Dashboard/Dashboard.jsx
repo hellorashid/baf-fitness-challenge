@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
     open: false,
  
     emailForm: '', 
-    performanceForm: '', 
+    performanceForm: 0, 
     eventForm : '',
     dateForm :'',
     genderForm : '',
@@ -106,12 +106,14 @@ class Dashboard extends React.Component {
   };
 
   addUserAttempt = () => { 
+    let timeNow = new Date();
+    let finalDate = this.state.dateForm + 'T' + timeNow.getHours() + ':' + timeNow.getMinutes()
 
     addAttempts({
         email: this.state.emailForm, 
         performance: this.state.performanceForm, 
 	      event : this.state.eventForm,
-	      date : this.state.dateForm,
+	      date : finalDate,
 	      gender : this.state.genderForm,
 
       })
@@ -121,6 +123,14 @@ class Dashboard extends React.Component {
       console.log(result)
       // ...
     });
+
+    this.setState({
+      emailForm: '', 
+      performanceForm: 0, 
+      eventForm : '',
+      dateForm :'',
+      genderForm : '',
+    })
   }
 
   
@@ -537,6 +547,7 @@ class Dashboard extends React.Component {
                       <MenuItem value={'shuttlerun'}>Shuttle Run</MenuItem>
                       <MenuItem value={'squats'}>Squats</MenuItem>
                       <MenuItem value={'fitnesstest'}>Fitness Test</MenuItem>
+                      <MenuItem value={'ropepull'}>Rope Pull</MenuItem>
                     </Select>
                     <FormHelperText>Select an Event</FormHelperText>
                   </FormControl>
@@ -549,6 +560,7 @@ class Dashboard extends React.Component {
                     onChange={this.handleChangeSelect}
                     placeholder="Performance"
                     margin="normal"
+                    type="number"
                     className={classes.textField}
                     // labelText="Email address"
                     // formControlProps={{
@@ -579,16 +591,18 @@ class Dashboard extends React.Component {
                 <Button size="large" color="primary" onClick={ this.addUserAttempt}>
                   Submit
                 </Button>
-    
+{/*     
                 <Button size="large" color="primary" onClick={() => { 
                   console.log("Email" , this.state.emailForm)
                   console.log("date" , this.state.dateForm)
                   console.log("event" , this.state.eventForm)
                   console.log("performce" , this.state.performanceForm)
                   console.log("gender" , this.state.genderForm)
+                  
 
                 }}> Test
-                </Button>
+                </Button> */}
+           
             </CardActions>
           </Card>
           </GridItem>

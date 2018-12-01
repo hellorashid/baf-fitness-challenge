@@ -13,6 +13,7 @@ import Poppers from "@material-ui/core/Popper";
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
+import ExitIcon from "@material-ui/icons/ExitToApp";
 import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -47,7 +48,7 @@ class HeaderLinks extends React.Component {
     const { open } = this.state;
     return (
       <div>
-        <div className={classes.searchWrapper}>
+        {/* <div className={classes.searchWrapper}>
           <CustomInput
             formControlProps={{
               className: classes.margin + " " + classes.search
@@ -62,18 +63,18 @@ class HeaderLinks extends React.Component {
           <Button color="white" aria-label="edit" justIcon round>
             <Search />
           </Button>
-        </div>
+        </div> */}
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
-          aria-label="Dashboard"
+          aria-label="sign-out-alt"
           className={classes.buttonLink}
             onClick={ this.logout } 
         >
-          <Dashboard className={classes.icons} />
+          <ExitIcon className={classes.icons} />
           <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Dashboard</p>
+            <p className={classes.linkText}>Logout</p>
           </Hidden>
         </Button>
          {/*
