@@ -78,9 +78,9 @@ class TableList extends React.Component {
           let userInfo = {}
           
           currentRef.once('value', snapshot => { 
-            userInfo.first_name = snapshot.val().first_name
-            userInfo.last_name = snapshot.val().last_name
-            userInfo.overall = snapshot.val().overall
+            // userInfo.first_name = snapshot.val().first_name
+            // userInfo.last_name = snapshot.val().last_name
+            // userInfo.overall = snapshot.val().overall
             
             // console.log('maybe', snapshot.val().first_name)
           })

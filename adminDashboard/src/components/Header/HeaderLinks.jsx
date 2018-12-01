@@ -18,6 +18,8 @@ import Search from "@material-ui/icons/Search";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
+
+import fire from '../../fire.js'
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle";
 
 class HeaderLinks extends React.Component {
@@ -35,6 +37,10 @@ class HeaderLinks extends React.Component {
 
     this.setState({ open: false });
   };
+
+  logout = () => { 
+    fire.auth().signOut()
+  }
 
   render() {
     const { classes } = this.props;
@@ -63,6 +69,7 @@ class HeaderLinks extends React.Component {
           simple={!(window.innerWidth > 959)}
           aria-label="Dashboard"
           className={classes.buttonLink}
+            onClick={ this.logout } 
         >
           <Dashboard className={classes.icons} />
           <Hidden mdUp implementation="css">

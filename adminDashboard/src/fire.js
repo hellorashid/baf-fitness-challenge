@@ -11,4 +11,6 @@ import SECRET from './secret.js';
   };
 
   const fire = firebase.initializeApp(config);
+  let functions = fire.functions();
+
   export default fire; 

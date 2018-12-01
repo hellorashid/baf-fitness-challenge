@@ -115,6 +115,11 @@ class LoginPage extends React.Component {
         }
     };
 
+    handleSignIn = () => { 
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        this.props.history.push("/dashboard/")
+    }
+
     handleEmail(event) {
         this.setState({email: event.target.value});
       }
@@ -167,7 +172,7 @@ class LoginPage extends React.Component {
             </CardBody>
             <CardFooter>
                 <Button color="primary"
-                onClick={ this.handleSignUp}
+                onClick={this.handleSignUp}
                 >Login</Button>
                 </CardFooter>
             </Card>

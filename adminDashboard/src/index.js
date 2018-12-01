@@ -71,12 +71,12 @@ class App extends React.Component {
 
           <Route exact path="/login" component={LoginPage}  />
           <PrivateRoute 
-            exact path="/dashboard" 
+             path="/dashboard" 
             component={Dashboard} 
             authenticated={authenticated} />
 
           <PrivateRoute 
-            exact path="/leaderboards" 
+             path="/leaderboards" 
             component={Leaderboards} 
             authenticated={authenticated} />
           </Switch>

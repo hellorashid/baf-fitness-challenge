@@ -29,9 +29,21 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import CustomInput from "components/CustomInput/CustomInput.jsx";
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { bugs, website, server } from "variables/general";
 import fire from '../../fire.js'; 
+
 
 import {
   dailySalesChart,
@@ -40,6 +52,11 @@ import {
 } from "variables/charts";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+
+
+let addAttempts = fire.functions().httpsCallable('addAttempts2');
+let helloWorld = fire.functions().httpsCallable('helloWorld');
+
 
 class Dashboard extends React.Component {
   state = {
@@ -53,6 +70,14 @@ class Dashboard extends React.Component {
     female2 : [],
     female3 : [],
 
+    open: false,
+ 
+    emailForm: '', 
+    performanceForm: '', 
+    eventForm : '',
+    dateForm :'',
+    genderForm : '',
+
   };
   handleChange = (event, value) => {
     this.setState({ value });
@@ -61,6 +86,42 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
+
+
+  
+  handleEmail = event => {
+    this.setState({ emailForm: event.target.value });
+  };
+  // ---- Select ------ 
+  handleChangeSelect = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleCloseSelect = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpenSelect = () => {
+    this.setState({ open: true });
+  };
+
+  addUserAttempt = () => { 
+
+    addAttempts({
+        email: this.state.emailForm, 
+        performance: this.state.performanceForm, 
+	      event : this.state.eventForm,
+	      date : this.state.dateForm,
+	      gender : this.state.genderForm,
+
+      })
+      .then(function(result) {
+      // Read result of the Cloud Function.
+      var sanitizedMessage = result.data;
+      console.log(result)
+      // ...
+    });
+  }
 
   
   componentWillMount(){
@@ -71,8 +132,8 @@ class Dashboard extends React.Component {
       console.log(snapshot.val())
       let allUsers = Object.values(snapshot.val())
       
-      let allMales = allUsers.filter( user => user.gender === 0)
-      let allFemales = allUsers.filter( user => user.gender === 1)
+      let allMales = allUsers.filter( user => user.gender == 'm')
+      let allFemales = allUsers.filter( user => user.gender == 'f')
 
       console.log("Males" , allMales)
       console.log("Females" , allFemales)
@@ -131,9 +192,9 @@ class Dashboard extends React.Component {
       ] 
       let female_three = [ 
         '3', 
-        allFemales[2].first_name, 
-        allFemales[2].last_name,
-        allFemales[2].overall.toString()
+        allFemales[1].first_name, 
+        allFemales[1].last_name,
+        allFemales[1].overall.toString()
       ] 
   
   
@@ -145,6 +206,9 @@ class Dashboard extends React.Component {
 
     })
   }
+
+
+  
 
   componentDidMount () { 
     
@@ -409,6 +473,124 @@ class Dashboard extends React.Component {
                 />
               </CardBody>
             </Card>
+          </GridItem>
+
+          <GridItem xs={12} sm={12} md={8}>
+        <Card>
+          <CardHeader color="info">
+            <h4 className={classes.cardTitleWhite}>
+              Add User Attempt
+            </h4>
+          </CardHeader>
+          <CardBody>
+          <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <TextField
+                    id="email-address"
+                    name="emailForm"
+                    value={this.state.emailForm}
+                    onChange={this.handleEmail}
+                    placeholder="Email Address"
+                    margin="normal"
+                    // labelText="Email address"
+                    // formControlProps={{
+                    //   fullWidth: true
+                    // }}
+                  />              
+                </GridItem>
+
+                <GridItem xs={12} sm={12} md={6} >
+                  <FormControl className={classes.formControl}>
+                    <TextField
+                      id="dateForm"
+                      name="dateForm"
+                      label="Date"
+                      type="date"
+                      margin="normal"
+                      value={this.state.dateForm}
+                      onChange={this.handleChangeSelect}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </FormControl >
+                </GridItem>
+
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="event-helper">Event</InputLabel>
+                    <Select
+                      value={this.state.eventForm}
+                      onChange={this.handleChangeSelect}
+                      input={<Input name="eventForm" id="event-helper" fullWidth={true} />}
+                      fullWidth
+                    >
+                       <MenuItem value={'burpees'}>Burpees</MenuItem>
+                      <MenuItem value={'bike'}>Bike</MenuItem>
+                      <MenuItem value={'freethrow'}>Free Throw</MenuItem>
+                      <MenuItem value={'plank'}>Plank</MenuItem>
+                      <MenuItem value={'pushups'}>Pushups</MenuItem>
+                      <MenuItem value={'rowing'}>Rowing</MenuItem>
+                      <MenuItem value={'shuttlerun'}>Shuttle Run</MenuItem>
+                      <MenuItem value={'squats'}>Squats</MenuItem>
+                      <MenuItem value={'fitnesstest'}>Fitness Test</MenuItem>
+                    </Select>
+                    <FormHelperText>Select an Event</FormHelperText>
+                  </FormControl>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
+                <TextField
+                    id="performance"
+                    name="performanceForm"
+                    value={this.state.performanceForm}
+                    onChange={this.handleChangeSelect}
+                    placeholder="Performance"
+                    margin="normal"
+                    className={classes.textField}
+                    // labelText="Email address"
+                    // formControlProps={{
+                    //   fullWidth: true
+                    // }}
+                  />  
+                </GridItem>
+              </GridContainer>
+
+              <GridItem xs={12} sm={12} md={6}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="event-helper">Gender</InputLabel>
+                <Select
+                  value={this.state.genderForm}
+                  onChange={this.handleChangeSelect}
+                  input={<Input name="genderForm" id="event-helper" fullWidth={true} />}
+                  fullWidth
+                >
+                  <MenuItem value={'m'}>Male</MenuItem>
+                  <MenuItem value={'f'}>Female</MenuItem>
+                </Select>
+                <FormHelperText>Select gender</FormHelperText>
+              </FormControl>
+            </GridItem>
+          </CardBody>
+
+            <CardActions>
+                <Button size="large" color="primary" onClick={ this.addUserAttempt}>
+                  Submit
+                </Button>
+    
+                <Button size="large" color="primary" onClick={() => { 
+                  console.log("Email" , this.state.emailForm)
+                  console.log("date" , this.state.dateForm)
+                  console.log("event" , this.state.eventForm)
+                  console.log("performce" , this.state.performanceForm)
+                  console.log("gender" , this.state.genderForm)
+
+                }}> Test
+                </Button>
+            </CardActions>
+          </Card>
           </GridItem>
         </GridContainer>
       </div>
